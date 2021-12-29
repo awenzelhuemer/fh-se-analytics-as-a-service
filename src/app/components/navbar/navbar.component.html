@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" class="row justify-content-between w-100 g-0">
+    <div class="col-auto">
+        <a mat-button routerLink="/home">AaaS</a>
+    </div>
+    <div class="col-auto" *ngIf="isSignedIn">
+        <a mat-button routerLink="/detectors">
+            <mat-icon>schedule</mat-icon>
+            Detectors
+        </a>
+        <a mat-button routerLink="/metrics">
+            <mat-icon>analytics</mat-icon>
+            Metrics
+        </a>
+        <a mat-button routerLink="/logs">
+            <mat-icon>info</mat-icon>
+            Logs
+        </a>
+    </div>
+    <div class="col-auto">
+        <ng-container *ngIf="isSignedIn; else signIn">
+            <a mat-button routerLink="/sign-out">
+                <mat-icon>logout</mat-icon>
+                Sign out
+            </a>
+        </ng-container>
+        <ng-template #signIn>
+            <a mat-button routerLink="/sign-in">
+                <mat-icon>login</mat-icon>
+                Sign in
+            </a>
+        </ng-template>
+    </div>
+</mat-toolbar>
