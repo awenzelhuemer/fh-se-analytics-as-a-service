@@ -17,17 +17,9 @@
         </a>
     </div>
     <div class="col-auto">
-        <ng-container *ngIf="isSignedIn; else signIn">
-            <a mat-button routerLink="/sign-out">
-                <mat-icon>logout</mat-icon>
-                Sign out
-            </a>
-        </ng-container>
-        <ng-template #signIn>
-            <a mat-button routerLink="/sign-in">
-                <mat-icon>login</mat-icon>
-                Sign in
-            </a>
-        </ng-template>
+        <button mat-button (click)="isSignedIn ? signOut() : signIn()">
+            <mat-icon>{{isSignedIn ? 'login' : 'logout'}}</mat-icon>
+            {{isSignedIn ? 'Sign out' : 'Sign in'}}
+        </button>
     </div>
 </mat-toolbar>
