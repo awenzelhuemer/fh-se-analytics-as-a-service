@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
 import { authConfig } from 'src/app/auth.config';
@@ -10,7 +10,8 @@ import { authConfig } from 'src/app/auth.config';
 })
 export class AppComponent {
   
-  constructor(private oauthService: OAuthService) {
+  constructor(
+    private oauthService: OAuthService) {
     this.configureWithNewConfigApi();
   }
 
