@@ -6,3 +6,34 @@ body {
     font-family: Roboto,"Helvetica Neue", sans-serif;
     background-color: #303030;
 }
+
+.property-name {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.property {
+    margin-bottom: 12px;
+}
+
+/* Table */
+.mat-row.selectable .mat-cell {
+    cursor: pointer;
+}
+
+/* Floating action button */
+.floating-fab {
+    position: fixed !important;
+    right: 30px;
+    bottom: 30px;
+}
+
+.message-error {
+    color: white;
+    background-color: #dc3545;
+}
+
+.message-info {
+    color: black;
+    background-color: #0dcaf0;
+}

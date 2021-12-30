@@ -1,0 +1,50 @@
+<mat-card class="mb-4 text-center">
+    <mat-card-title class="d-flex justify-content-center">
+        <h1 class="d-flex">Detector {{detector?.metricName}}</h1>
+        <mat-chip-list class="ms-3" *ngIf="detector">
+            <mat-chip color="primary" selected="true" *ngIf="detector.activated">On</mat-chip>
+            <mat-chip *ngIf="!detector.activated">Off</mat-chip>
+        </mat-chip-list>
+    </mat-card-title>
+    <mat-card-subtitle>
+        Last executed: {{detector?.lastExecuted | date : 'medium'}}
+    </mat-card-subtitle>
+</mat-card>
+<mat-card *ngIf="detector">
+    <mat-card-title class="text-center">
+        <h2>Details</h2>
+    </mat-card-title>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-6 col-lg-4">
+                <div class="property-name">Execution Interval</div>
+                <div class="property">{{detector.interval}}</div>
+            </div>
+            <div class="col-6 col-lg-4">
+                <div class="property-name">Action</div>
+                <div class="property">{{detector.action.type | actionType}} ({{detector.action.endpoint}})</div>
+            </div>
+            <div class="col-6 col-lg-4">
+                <div class="property-name">Measurement Offset</div>
+                <div class="property">{{detector.offset}}</div>
+            </div>
+            <div class="col-6 col-lg-4">
+                <div class="property-name">Detector type</div>
+                <div class="property">{{detector.intervalDetector ? 'Interval' : 'Min-Max'}}</div>
+            </div>
+            <div class="col-6 col-lg-4" *ngIf="detector.intervalDetector">
+                <div class="property-name">Condition</div>
+                <div class="property">
+                    {{detector.intervalDetector.aggregateOperation | aggregateOperation}}
+                    {{detector.intervalDetector.compareType | compareType}}
+                    {{detector.intervalDetector.threshold}}
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-4" *ngIf="detector.minMaxDetector">
+            <div class="property-name">Condition</div>
+            <div class="property">Exceed {{detector.minMaxDetector.maxHits}} hits in threshold range of {{detector.minMaxDetector.lowerThreshold}} -
+                {{detector.minMaxDetector.upperThreshold}}</div>
+        </div>
+    </mat-card-content>
+</mat-card>

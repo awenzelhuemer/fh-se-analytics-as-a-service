@@ -6,7 +6,7 @@ import { ActionType } from '../models/action-type';
 })
 export class ActionTypePipe implements PipeTransform {
 
-  transform(value: ActionType, ...args: unknown[]): unknown {
+  transform(value: ActionType, ...args: unknown[]): string {
     switch (value) {
       case ActionType.Webhook:
         return "Webhook";

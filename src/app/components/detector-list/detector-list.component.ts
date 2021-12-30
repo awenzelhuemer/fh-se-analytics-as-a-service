@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { Detector } from 'src/app/models/detector';
 import { DetectorService } from 'src/app/services/detector.service';
 
@@ -9,21 +10,35 @@ import { DetectorService } from 'src/app/services/detector.service';
 })
 export class DetectorListComponent implements OnInit {
 
-  detectors?: Detector[];
+  dataSource: Detector[] = [];
+  @ViewChild(MatSort) sort!: MatSort;
 
   displayedColumns = [
     "activated",
     "metricName",
     "interval",
     "offset",
-    "action",
     "lastExecuted"
   ];
 
   constructor(private detectorService: DetectorService) { }
 
   ngOnInit(): void {
-    this.detectorService.getDetectors().subscribe(d => this.detectors = d);
+    this.load();
   }
 
+  onActiveChange(detector: Detector) {
+    detector.activated = !detector.activated;
+    this.detectorService.update(detector).subscribe(() => this.load());
+  }
+
+  load() {
+    this.detectorService.findAll().subscribe(d => {
+      this.dataSource = d;
+    });
+  }
+
+  add() {
+
+  }
 }

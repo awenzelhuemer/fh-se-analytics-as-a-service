@@ -11,11 +11,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { DetectorListComponent } from './components/detector-list/detector-list.component';
 import { ActionTypePipe } from './pipes/action-type.pipe';
-import { TimespanPipe } from './pipes/timespan.pipe';
 import { ApiInterceptor } from './interceptors/api-interceptor';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { registerLocaleData } from '@angular/common';
 import localeDeAt from '@angular/common/locales/de-at';
+import { DetectorDetailComponent } from './components/detector-detail/detector-detail.component';
+import { AggregateOperationPipe } from './pipes/aggregate-operation.pipe';
+import { CompareTypePipe } from './pipes/compare-type.pipe';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -32,8 +34,10 @@ registerLocaleData(localeDeAt);
     HomeComponent,
     DetectorListComponent,
     ActionTypePipe,
-    TimespanPipe,
-    LoadingIndicatorComponent
+    LoadingIndicatorComponent,
+    DetectorDetailComponent,
+    AggregateOperationPipe,
+    CompareTypePipe
   ],
   imports: [
     BrowserModule,
