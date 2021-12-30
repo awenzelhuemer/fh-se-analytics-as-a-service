@@ -6,16 +6,31 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class MessageService {
 
-  private static duration = 5000;
+  private static duration = 6000;
 
   constructor(private snackBar: MatSnackBar) { }
 
-  showErrorMessage(message: string){
-    console.error(message);
-    return this.snackBar.open(message, undefined, { duration: MessageService.duration, panelClass: "message-error" });
+  showErrorMessage(error: any){
+
+    console.error(error);
+
+    let message: string;
+
+    if(error.status == 404){
+      message = "Entity does not exist."
+    } else {
+      message = `Error performing request, status code = ${error.status}`;
+    }
+
+    return this.showMessage(message, "message-error");
   }
 
   showInfoMessage(message: string){
-    return this.snackBar.open(message, undefined, { duration: MessageService.duration, panelClass: "message-info" });
+    return this.showMessage(message, "message-info");
+  }
+
+  private showMessage(message: string, cssClass: string){
+    return this.snackBar.open(message, undefined,
+      { duration: MessageService.duration, panelClass: cssClass })
   }
 }

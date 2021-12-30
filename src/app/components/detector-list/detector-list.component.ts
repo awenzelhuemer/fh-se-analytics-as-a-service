@@ -17,7 +17,6 @@ export class DetectorListComponent implements OnInit {
     "activated",
     "metricName",
     "interval",
-    "offset",
     "lastExecuted"
   ];
 

@@ -18,33 +18,23 @@
                 </mat-chip-list>
             </td>
         </ng-container>
-
         <ng-container matColumnDef="metricName">
             <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let row">{{row.metricName}}</td>
         </ng-container>
-
         <ng-container matColumnDef="interval">
             <th mat-header-cell *matHeaderCellDef>Execution Interval</th>
             <td mat-cell *matCellDef="let row">{{row.interval}}</td>
         </ng-container>
-
-        <ng-container matColumnDef="offset">
-            <th mat-header-cell *matHeaderCellDef>Measurement Offset</th>
-            <td mat-cell *matCellDef="let row">{{row.offset}}</td>
-        </ng-container>
-
         <ng-container matColumnDef="lastExecuted">
             <th mat-header-cell *matHeaderCellDef>Last executed</th>
             <td mat-cell *matCellDef="let row">{{row.lastExecuted | date : 'medium'}}</td>
         </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/detectors/', row.id]"
             class="selectable"></tr>
     </table>
 </mat-card>
-
 <button mat-fab color="primary" class="floating-fab" (click)="add()">
     <mat-icon>add</mat-icon>
 </button>

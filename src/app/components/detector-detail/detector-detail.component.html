@@ -6,11 +6,11 @@
             <mat-chip *ngIf="!detector.activated">Off</mat-chip>
         </mat-chip-list>
     </mat-card-title>
-    <mat-card-subtitle>
-        Last executed: {{detector?.lastExecuted | date : 'medium'}}
+    <mat-card-subtitle *ngIf="detector">
+        Last executed: {{detector.lastExecuted | date : 'medium'}}
     </mat-card-subtitle>
 </mat-card>
-<mat-card *ngIf="detector">
+<mat-card class="mb-4" *ngIf="detector">
     <mat-card-title class="text-center">
         <h2>Details</h2>
     </mat-card-title>
@@ -24,27 +24,22 @@
                 <div class="property-name">Action</div>
                 <div class="property">{{detector.action.type | actionType}} ({{detector.action.endpoint}})</div>
             </div>
-            <div class="col-6 col-lg-4">
-                <div class="property-name">Measurement Offset</div>
-                <div class="property">{{detector.offset}}</div>
-            </div>
-            <div class="col-6 col-lg-4">
-                <div class="property-name">Detector type</div>
-                <div class="property">{{detector.intervalDetector ? 'Interval' : 'Min-Max'}}</div>
-            </div>
             <div class="col-6 col-lg-4" *ngIf="detector.intervalDetector">
-                <div class="property-name">Condition</div>
-                <div class="property">
+                <div class="property-name">Triggers when</div>
+                <p class="property" *ngIf="detector.intervalDetector">
                     {{detector.intervalDetector.aggregateOperation | aggregateOperation}}
                     {{detector.intervalDetector.compareType | compareType}}
                     {{detector.intervalDetector.threshold}}
-                </div>
+                    in the last
+                    {{detector.offset}}.
+                </p>
+                <p class="property" *ngIf="detector.minMaxDetector">
+                    Total hits exceed {{detector.minMaxDetector.maxHits}} in threshold range of
+                    {{detector.minMaxDetector.lowerThreshold}} -
+                    {{detector.minMaxDetector.upperThreshold}} in the last {{detector.offset}}.
+                </p>
             </div>
-        </div>
-        <div class="col-6 col-lg-4" *ngIf="detector.minMaxDetector">
-            <div class="property-name">Condition</div>
-            <div class="property">Exceed {{detector.minMaxDetector.maxHits}} hits in threshold range of {{detector.minMaxDetector.lowerThreshold}} -
-                {{detector.minMaxDetector.upperThreshold}}</div>
         </div>
     </mat-card-content>
 </mat-card>
+<a mat-raised-button routerLink="/detectors">Back to overview</a>
