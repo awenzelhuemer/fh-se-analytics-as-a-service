@@ -18,7 +18,6 @@ constructor(
         return next.handle(request)
           .pipe(catchError((error) => {
             this.messageService.showErrorMessage(`Error performing request, status code = ${error.status}`);
-            console.error();
             this.loaderService.setLoading(false, request.url);
             return error;
           }))
