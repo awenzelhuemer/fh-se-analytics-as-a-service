@@ -12,6 +12,6 @@ export class DialogService {
   ) { }
 
   openEditDetectorDialog(detectorId: number) {
-    return this.dialog.open(EditDetectorDialogComponent, { data: detectorId, minWidth: 400 });
+    return this.dialog.open(EditDetectorDialogComponent, { data: detectorId, width: "650px" });
   }
 }

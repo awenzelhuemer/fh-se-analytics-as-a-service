@@ -2,11 +2,11 @@
     <h1 mat-dialog-title>Edit Detector</h1>
     <div mat-dialog-content>
         <div class="row">
-            <mat-form-field class="col-10">
+            <mat-form-field class="col-8">
                 <input matInput placeholder="Name" formControlName="metricName" autocomplete="off">
                 <mat-error>{{getErrorMessage(editForm.get('metricName'))}}</mat-error>
             </mat-form-field>
-            <div class="col-2">
+            <div class="col-4">
                 <div>&nbsp;</div>
                 <mat-slide-toggle color="primary" formControlName="activated">Active</mat-slide-toggle>
             </div>

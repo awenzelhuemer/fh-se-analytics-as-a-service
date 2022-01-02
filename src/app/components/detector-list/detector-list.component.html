@@ -12,9 +12,8 @@
             <th mat-header-cell *matHeaderCellDef>Active</th>
             <td mat-cell *matCellDef="let row">
                 <mat-chip-list>
-                    <mat-chip color="primary" selected="true" *ngIf="row.activated" (click)="onActiveChange(row)">On
-                    </mat-chip>
-                    <mat-chip *ngIf="!row.activated" (click)="onActiveChange(row)">Off</mat-chip>
+                    <mat-chip color="primary" [selected]="row.activated" (click)="onActiveChange(row)">{{row.activated ?
+                        'On' : 'Off'}}</mat-chip>
                 </mat-chip-list>
             </td>
         </ng-container>

@@ -11,7 +11,6 @@ import { DetectorService } from 'src/app/services/detector.service';
 export class DetectorListComponent implements OnInit {
 
   dataSource: Detector[] = [];
-  @ViewChild(MatSort) sort!: MatSort;
 
   displayedColumns = [
     "activated",

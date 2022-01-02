@@ -22,6 +22,7 @@ import { EditDetectorDialogComponent } from './components/edit-detector-dialog/e
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogListComponent } from './components/log-list/log-list.component';
 import { LogTypePipe } from './pipes/log-type.pipe';
+import { LogFilterComponent } from './components/log-filter/log-filter.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -44,7 +45,8 @@ registerLocaleData(localeDeAt);
     CompareTypePipe,
     EditDetectorDialogComponent,
     LogListComponent,
-    LogTypePipe
+    LogTypePipe,
+    LogFilterComponent
   ],
   imports: [
     BrowserModule,

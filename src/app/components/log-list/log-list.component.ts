@@ -1,21 +1,16 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-import { Observable } from 'rxjs';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { Instance } from 'src/app/models/instance';
+import { startWith, switchMap } from 'rxjs/operators';
 import { Log } from 'src/app/models/log';
 import { LogType } from 'src/app/models/log-type';
-import { InstanceService } from 'src/app/services/instance.service';
 import { LogService } from 'src/app/services/log.service';
-import { ValidationHelper } from '../utils/validation-helper';
 
 @Component({
   selector: 'app-log-list',
   templateUrl: './log-list.component.html',
   styleUrls: ['./log-list.component.scss']
 })
-export class LogListComponent implements OnInit, AfterViewInit {
+export class LogListComponent implements AfterViewInit {
 
   logs: Log[] = [];
   resultsLength = 0;
@@ -23,51 +18,16 @@ export class LogListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['type', 'createdAt', 'instanceId', 'name', 'message'];
 
+  filterValues: any;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  filterForm: FormGroup;
-
-  instances: string[] = [];
-  filteredInstances!: Observable<string[]>;
-
   constructor(
-    private logService: LogService,
-    private instanceService: InstanceService,
-    formBuilder: FormBuilder) {
-      this.filterForm = formBuilder.group({
-        searchText: [undefined],
-        type: [undefined],
-        from: [undefined],
-        to: [undefined],
-        instance: [undefined]
-      }); 
-    }
-
-    ngOnInit(): void {
-
-      this.filteredInstances = this.filterForm.get('instance')!.valueChanges.pipe(
-        startWith(''),
-        map(value => {
-          const filterValue = value.toLowerCase();
-
-          return this.instances.filter(instance => instance.toLowerCase().includes(filterValue));
-        }),
-      );
-
-      this.instanceService.findAllInstances().subscribe(i => this.instances = i.map(i => i.instanceId));
-    }
+    private logService: LogService) {
+  }
 
   ngAfterViewInit(): void {
     this.loadData();
-  }
-
-  submitFilter() {
-    this.paginator.pageIndex = 0;
-    this.loadData();
-  }
-
-  get logTypes() {
-    return [undefined, LogType.Error, LogType.Trace, LogType.Warning];
   }
 
   loadData() {
@@ -75,12 +35,12 @@ export class LogListComponent implements OnInit, AfterViewInit {
       .pipe(
         startWith({}),
         switchMap(() => this.logService.filter(
-          this.filterForm.get('searchText')?.value,
-          this.filterForm.get('type')?.value,
-          this.filterForm.get('from')?.value,
-          this.filterForm.get('to')?.value,
+          this.filterValues?.searchText,
+          this.filterValues?.type,
+          this.filterValues?.from,
+          this.filterValues?.to,
           undefined,
-          this.filterForm.get('instance')?.value,
+          this.filterValues?.instance,
           this.paginator.pageSize,
           this.paginator.pageIndex
         ))
@@ -105,7 +65,9 @@ export class LogListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getErrorMessage(control?: AbstractControl | null) {
-    return ValidationHelper.getErrorMessage(control);
+  filterChange(values: any) {
+    this.paginator.pageIndex = 0;
+    this.filterValues = values;
+    this.loadData();
   }
 }

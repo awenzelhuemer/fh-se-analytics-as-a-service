@@ -2,46 +2,7 @@
     <mat-card-title class="text-center">
         <h1>Logs</h1>
     </mat-card-title>
-
-    <form [formGroup]="filterForm" class="row mx-2">
-        <mat-form-field class="col-auto">
-            <input matInput placeholder="Search text" formControlName="searchText" autocomplete="off">
-        </mat-form-field>
-        <mat-form-field class="col-auto">
-            <mat-label>Log type</mat-label>
-            <mat-select formControlName="type">
-                <mat-option [value]="type" *ngFor="let type of logTypes">
-                    {{type === undefined ? 'All' : (type | logType)}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="col-auto">
-            <mat-label>Date range</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Start date" formControlName="from" autocomplete="off">
-                <input matEndDate placeholder="End date"  formControlName="to" autocomplete="off">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-
-            <mat-error>{{getErrorMessage(filterForm.get('matStartDateInvalid'))}}</mat-error>
-            <mat-error>{{getErrorMessage(filterForm.get('matEndDateInvalid'))}}</mat-error>
-        </mat-form-field>
-        <mat-form-field class="col-auto">
-            <input placeholder="Instance"
-                   matInput
-                   formControlName="instance"
-                   [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let instance of filteredInstances | async" [value]="instance">
-                {{instance}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        <button mat-button (click)="submitFilter()" class="col-auto">Filter
-        </button>
-    </form>
-
+    <app-log-filter (filterChange)="filterChange($event)"></app-log-filter>
     <table mat-table [dataSource]="logs" class="w-100">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>#</th>
@@ -71,7 +32,6 @@
             <th mat-header-cell *matHeaderCellDef>Message</th>
             <td mat-cell *matCellDef="let row">{{row.message}}</td>
         </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
