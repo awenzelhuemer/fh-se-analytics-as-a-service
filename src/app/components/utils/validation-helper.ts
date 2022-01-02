@@ -9,6 +9,10 @@ export class ValidationHelper {
             return 'Field is required.';
         } else if (control.hasError('email')) {
             return 'E-Mail is invalid.';
+        } else if(control.hasError('matStartDateInvalid')) {
+            return "Invalid start date."
+        } else if(control.hasError('matEndDateInvalid')) {
+            return "Invalid end date."
         }
         else {
             return '';

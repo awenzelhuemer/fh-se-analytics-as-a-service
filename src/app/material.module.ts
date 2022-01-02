@@ -18,6 +18,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   exports: [
@@ -40,6 +42,8 @@ import { MatChipsModule } from '@angular/material/chips';
     , MatSlideToggleModule
     , MatProgressSpinnerModule
     , MatChipsModule
+    , MatPaginatorModule
+    , MatNativeDateModule
   ]
 })
 

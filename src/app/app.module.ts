@@ -20,6 +20,8 @@ import { AggregateOperationPipe } from './pipes/aggregate-operation.pipe';
 import { CompareTypePipe } from './pipes/compare-type.pipe';
 import { EditDetectorDialogComponent } from './components/edit-detector-dialog/edit-detector-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LogListComponent } from './components/log-list/log-list.component';
+import { LogTypePipe } from './pipes/log-type.pipe';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -40,7 +42,9 @@ registerLocaleData(localeDeAt);
     DetectorDetailComponent,
     AggregateOperationPipe,
     CompareTypePipe,
-    EditDetectorDialogComponent
+    EditDetectorDialogComponent,
+    LogListComponent,
+    LogTypePipe
   ],
   imports: [
     BrowserModule,
