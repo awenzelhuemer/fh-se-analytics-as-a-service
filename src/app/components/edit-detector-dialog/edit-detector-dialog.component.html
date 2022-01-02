@@ -1,0 +1,83 @@
+<form [formGroup]="editForm" (ngSubmit)="submit()" *ngIf="editForm">
+    <h1 mat-dialog-title>Edit Detector</h1>
+    <div mat-dialog-content>
+        <div class="row">
+            <mat-form-field class="col-10">
+                <input matInput placeholder="Name" formControlName="metricName" autocomplete="off">
+                <mat-error>{{getErrorMessage(editForm.get('metricName'))}}</mat-error>
+            </mat-form-field>
+            <div class="col-2">
+                <div>&nbsp;</div>
+                <mat-slide-toggle color="primary" formControlName="activated">Active</mat-slide-toggle>
+            </div>
+            <mat-form-field class="col-12">
+                <input matInput placeholder="Execution Interval" formControlName="interval" autocomplete="off" type="time">
+                <mat-error>{{getErrorMessage(editForm.get('interval'))}}</mat-error>
+            </mat-form-field>
+            <ng-container *ngIf="editForm.get('intervalDetector')?.value" formGroupName="intervalDetector">
+                <mat-form-field class="col-4">
+                    <mat-label>Aggregate operation</mat-label>
+                    <mat-select formControlName="aggregateOperation">
+                        <mat-option [value]="operation" *ngFor="let operation of aggregateOperations">
+                            {{operation | aggregateOperation}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <mat-label>Compare type</mat-label>
+                    <mat-select formControlName="compareType">
+                        <mat-option [value]="compareType" *ngFor="let compareType of compareTypes">
+                            {{compareType | compareType}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Threshold" formControlName="threshold" autocomplete="off" type="number"
+                        min="0">
+                    <mat-error>{{getErrorMessage(editForm.get('threshold'))}}</mat-error>
+                </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="editForm.get('minMaxDetector')?.value" formGroupName="minMaxDetector">
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Lower Threshold" formControlName="lowerThreshold" autocomplete="off"
+                        type="number" min="0">
+                    <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.lowerThreshold'))}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Upper Threshold" formControlName="upperThreshold" autocomplete="off"
+                        type="number" min="0">
+                    <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.upperThreshold'))}}</mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Max hits" formControlName="maxHits" autocomplete="off" type="number"
+                        min="0">
+                    <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.maxHits'))}}</mat-error>
+                </mat-form-field>
+            </ng-container>
+            <mat-form-field class="col-12">
+                <input matInput placeholder="Offset" formControlName="offset" autocomplete="off" type="time">
+                <mat-error>{{getErrorMessage(editForm.get('offset'))}}</mat-error>
+            </mat-form-field>
+            <ng-container formGroupName="action">
+                <mat-form-field class="col-4">
+                    <mat-label>Action type</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option [value]="actionType" *ngFor="let actionType of actionTypes">
+                            {{actionType | actionType}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-8">
+                    <input matInput placeholder="Endpoint" formControlName="endpoint" autocomplete="off">
+                    <mat-error>{{getErrorMessage(editForm.get('action.endpoint'))}}</mat-error>
+                </mat-form-field>
+            </ng-container>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!editForm.valid">Save</button>
+        <button type="button" mat-button color="error" (click)="cancel()">Cancel</button>
+        <button type="button" mat-raised-button (click)="changeType()" class="ms-auto">Change type to
+            {{editForm.get('minMaxDetector')?.value ? 'Min-/Max Detector' : 'Interval-Detector'}}</button>
+    </div>
+</form>

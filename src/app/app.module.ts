@@ -18,6 +18,8 @@ import localeDeAt from '@angular/common/locales/de-at';
 import { DetectorDetailComponent } from './components/detector-detail/detector-detail.component';
 import { AggregateOperationPipe } from './pipes/aggregate-operation.pipe';
 import { CompareTypePipe } from './pipes/compare-type.pipe';
+import { EditDetectorDialogComponent } from './components/edit-detector-dialog/edit-detector-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -37,13 +39,15 @@ registerLocaleData(localeDeAt);
     LoadingIndicatorComponent,
     DetectorDetailComponent,
     AggregateOperationPipe,
-    CompareTypePipe
+    CompareTypePipe,
+    EditDetectorDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot()
   ],

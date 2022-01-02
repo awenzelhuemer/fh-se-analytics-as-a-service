@@ -16,6 +16,8 @@ export class AggregateOperationPipe implements PipeTransform {
         return "Max value";
       case AggregateOperation.Min:
         return "Min value";
+      case AggregateOperation.Sum:
+        return "Sum";
       default:
         return "Unknown";
     }

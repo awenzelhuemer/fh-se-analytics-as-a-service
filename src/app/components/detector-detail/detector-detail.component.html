@@ -24,7 +24,7 @@
                 <div class="property-name">Action</div>
                 <div class="property">{{detector.action.type | actionType}} ({{detector.action.endpoint}})</div>
             </div>
-            <div class="col-6 col-lg-4" *ngIf="detector.intervalDetector">
+            <div class="col-6 col-lg-4">
                 <div class="property-name">Triggers when</div>
                 <p class="property" *ngIf="detector.intervalDetector">
                     {{detector.intervalDetector.aggregateOperation | aggregateOperation}}
@@ -34,7 +34,7 @@
                     {{detector.offset}}.
                 </p>
                 <p class="property" *ngIf="detector.minMaxDetector">
-                    Total hits exceed {{detector.minMaxDetector.maxHits}} in threshold range of
+                    Hits exceed {{detector.minMaxDetector.maxHits}} in threshold range of
                     {{detector.minMaxDetector.lowerThreshold}} -
                     {{detector.minMaxDetector.upperThreshold}} in the last {{detector.offset}}.
                 </p>
@@ -43,3 +43,6 @@
     </mat-card-content>
 </mat-card>
 <a mat-raised-button routerLink="/detectors">Back to overview</a>
+<button mat-fab color="primary" class="floating-fab" (click)="edit()" *ngIf="detector">
+    <mat-icon>edit</mat-icon>
+</button>
