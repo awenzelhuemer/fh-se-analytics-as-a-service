@@ -63,7 +63,7 @@ export class MetricChartComponent implements OnInit {
 
   ngOnInit() {
     this.metricService.filter(
-      this.config.metricName,
+      this.config.metrics.map(m => m.name),
       undefined,
       undefined,
       undefined,
@@ -114,7 +114,7 @@ export class MetricChartComponent implements OnInit {
       data: data,
       label: label,
       backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: ColorHelper.getRandomColor(),
+      borderColor: this.config.metrics.find(m => m.name == label)?.color ?? ColorHelper.getRandomColor(),
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',

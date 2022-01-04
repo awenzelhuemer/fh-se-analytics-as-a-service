@@ -2,14 +2,43 @@
     <h1 mat-dialog-title>{{isAdd ? "Add chart" : "Edit chart"}}</h1>
     <div mat-dialog-content>
         <div class="row">
+            <div class="col-12">
+                <h2>General data</h2>
+            </div>
             <mat-form-field class="col-12">
                 <input matInput placeholder="Name" autocomplete="off" formControlName="name">
                 <mat-error>{{getErrorMessage(form.get('name'))}}</mat-error>
             </mat-form-field>
             <mat-form-field class="col-12">
-                <input matInput placeholder="Result count" autocomplete="off" formControlName="resultCount" type="number" min="5">
+                <input matInput placeholder="Result count" autocomplete="off" formControlName="resultCount"
+                    type="number" min="5">
                 <mat-error>{{getErrorMessage(form.get('resultCount'))}}</mat-error>
             </mat-form-field>
+            <h2>Metrics</h2>
+            <ng-container formArrayName="metrics">
+                <ng-container *ngFor="let metricsForm of metricControls; let i = index">
+                    <div class="col-6" [formGroup]="metricsForm">
+                        <div class="row">
+                            <mat-form-field class="col-12">
+                                <input matInput placeholder="Name" autocomplete="off" formControlName="name">
+                                <mat-error>{{getErrorMessage(metricsForm.get('name'))}}</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="col-10">
+                                <input matInput placeholder="Color" autocomplete="off" formControlName="color"
+                                    type="color">
+                                <mat-error>{{getErrorMessage(metricsForm.get('color'))}}</mat-error>
+                            </mat-form-field>
+                            <button class="align-self-center col-2" type="button" mat-icon-button (click)="deleteMetric(i)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                            <mat-divider></mat-divider>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <button class="col-12" type="button" mat-raised-button (click)="addMetric()">
+                Add metrics
+            </button>
         </div>
     </div>
     <div mat-dialog-actions>

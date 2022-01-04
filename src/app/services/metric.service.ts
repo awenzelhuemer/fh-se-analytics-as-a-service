@@ -19,17 +19,24 @@ export class MetricService {
     private storageService: StorageService
     ) { }
 
-  filter(searchText: string | undefined, type: MetricType | undefined, from: Date | undefined, to: Date | undefined, appKey: string | undefined, instanceId: string | undefined, count: number, offset: number) {
+  filter(names: string[], type: MetricType | undefined, from: Date | undefined, to: Date | undefined, appKey: string | undefined, instanceId: string | undefined, count: number, offset: number) {
+    
+    let params = new HttpParams();
+
+    if(names.length > 0) {
+      names.forEach(n => params = params.append("names", n))
+    };
+
+    params = params.append('type', type ?? "")
+    .append('from', DateHelper.toIsoString(from))
+    .append('to', DateHelper.toIsoString(to))
+    .append('appKey', appKey ?? "")
+    .append('instanceId', instanceId ?? "")
+    .append('count', count)
+    .append('offset', offset)
+    
     return this.httpClient.get<Paging<Metric>>(`${environment.apiBaseUrl}/metrics`, {
-      params: new HttpParams()
-        .append('searchText', searchText ?? "")
-        .append('type', type ?? "")
-        .append('from', DateHelper.toIsoString(from))
-        .append('to', DateHelper.toIsoString(to))
-        .append('appKey', appKey ?? "")
-        .append('instanceId', instanceId ?? "")
-        .append('count', count)
-        .append('offset', offset)
+      params
     });
   }
 
