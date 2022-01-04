@@ -5,6 +5,9 @@
 </mat-card>
 <div class="row mt-4">
     <div class="col-12 col-md-6" *ngFor="let config of chartConfigurations">
-        <app-metric-chart [config]="config"></app-metric-chart>
+        <app-metric-chart [config]="config" (change)="loadChartConfigurations()"></app-metric-chart>
     </div>
 </div>
+<button mat-fab color="primary" class="floating-fab" (click)="addChart()">
+    <mat-icon>add</mat-icon>
+</button>

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { DateHelper } from '../components/utils/date-helper';
+import { DateHelper } from '../utils/date-helper';
 import { Log } from '../models/log';
 import { LogType } from '../models/log-type';
 import { Paging } from '../models/paging';

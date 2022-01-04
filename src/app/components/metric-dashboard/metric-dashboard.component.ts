@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MetricChartConfig } from 'src/app/models/metric-chart-config';
+import { DialogService } from 'src/app/services/dialog.service';
+import { MetricService } from 'src/app/services/metric.service';
 
 @Component({
   selector: 'app-metric-dashboard',
@@ -10,22 +12,22 @@ export class MetricDashboardComponent implements OnInit {
 
   chartConfigurations: MetricChartConfig[] = [];
 
-  constructor() { }
+  constructor(
+    private metricService: MetricService,
+    private dialogService: DialogService
+    ) { }
 
   ngOnInit(): void {
-    this.chartConfigurations.push({
-      name: "Ping test ANDI-NB (roundtrip)",
-      instanceId: "ANDI-NB",
-      metricName: "%roundtrip",
-      resultCount: 50
-    });
-
-    this.chartConfigurations.push({
-      name: "Ping test ANDI-NB (failures)",
-      instanceId: "ANDI-NB",
-      metricName: "%average.failure",
-      resultCount: 50
-    });
+    this.loadChartConfigurations();
   }
 
+  loadChartConfigurations() {
+    this.chartConfigurations = this.metricService.getAllChartsConfig();
+  }
+
+  addChart() {
+    this.dialogService.openAddMetricChartDialog()
+    .afterClosed()
+    .subscribe(() => this.loadChartConfigurations());
+  }
 }

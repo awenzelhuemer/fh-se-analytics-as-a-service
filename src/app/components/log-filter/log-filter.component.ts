@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { LogType } from 'src/app/models/log-type';
 import { InstanceService } from 'src/app/services/instance.service';
-import { ValidationHelper } from '../utils/validation-helper';
+import { ValidationHelper } from '../../utils/validation-helper';
 
 @Component({
   selector: 'app-log-filter',

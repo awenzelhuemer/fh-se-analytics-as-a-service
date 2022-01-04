@@ -35,8 +35,4 @@ export class DetectorListComponent implements OnInit {
       this.dataSource = d;
     });
   }
-
-  add() {
-
-  }
 }

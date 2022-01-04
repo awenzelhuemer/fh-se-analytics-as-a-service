@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartDataset, ChartEvent, ChartOptions, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Metric } from 'src/app/models/metric';
 import { MetricService } from 'src/app/services/metric.service';
 import 'chartjs-adapter-moment';
-import { ColorHelper } from '../utils/color-helper';
+import { ColorHelper } from '../../utils/color-helper';
 import { MetricChartConfig } from 'src/app/models/metric-chart-config';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-metric-chart',
@@ -21,8 +22,11 @@ export class MetricChartComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
+  @Output() change: EventEmitter<any> = new EventEmitter();
+
   constructor(
-    private metricService: MetricService
+    private metricService: MetricService,
+    private dialogService: DialogService
   ) {
     this.data = {
       datasets: []
@@ -71,29 +75,30 @@ export class MetricChartComponent implements OnInit {
   }
 
   private fillCharts(metrics: Metric[]) {
-    this.data.labels = metrics.map(m => m.createdAt);
+    this.data.labels = metrics
+    .map(m => m.createdAt)
+    .filter(MetricChartComponent.onlyUnique);
     this.data.datasets = [];
 
-    const names = metrics.map(m => m.name).filter(MetricChartComponent.onlyUnique);
+    metrics.map(m => m.name)
+      .filter(MetricChartComponent.onlyUnique)
+      .forEach(name => {
 
-    console.log(names);
+        const filteredMetrics = metrics.filter(i => i.name == name);
+        const chartData: number[] = [];
 
-    names.forEach(name => {
-      
-      const filteredMetrics = metrics.filter(i => i.name == name);
-      const chartData: number[] = [];
+        this.data.labels?.forEach(createdAt => {
+          // One or multiple entries with current date exist
+          const metric = filteredMetrics.find(m => m.createdAt == createdAt);
+          if (metric) {
+            chartData.push(metric.value);
+          } else { // No entry exists (Fill up with zeros)
+            chartData.push(0);
+          }
+        });
 
-      metrics.forEach(metric => {
-        // One or multiple entries with current date exist
-        if (filteredMetrics.some(m => m.createdAt == metric.createdAt)) {
-          chartData.push(metric.value);
-        } else { // No entry exists (Fill up with zeros)
-          chartData.push(0);
-        }
+        this.addDataSet(name, chartData);
       });
-
-      this.addDataSet(name, chartData);
-    });
 
     this.chart?.update();
   }
@@ -103,6 +108,7 @@ export class MetricChartComponent implements OnInit {
   }
 
   private addDataSet(label: string, data: number[]) {
+    console.log("Dataset added with " + label);
     this.data.datasets.push({
       data: data,
       label: label,
@@ -113,5 +119,16 @@ export class MetricChartComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)',
     });
+  }
+
+  editChart() {
+    this.dialogService.openEditMetricChartDialog(this.config)
+    .afterClosed()
+    .subscribe(() => this.change.emit());
+  }
+
+  removeChart() {
+    this.metricService.removeChartConfig(this.config.id);
+    this.change.emit();
   }
 }

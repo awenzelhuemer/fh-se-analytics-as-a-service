@@ -26,6 +26,7 @@ import { LogFilterComponent } from './components/log-filter/log-filter.component
 import { NgChartsModule } from 'ng2-charts';
 import { MetricDashboardComponent } from './components/metric-dashboard/metric-dashboard.component';
 import { MetricChartComponent } from './components/metric-chart/metric-chart.component';
+import { EditMetricChartDialogComponent } from './components/edit-metric-chart-dialog/edit-metric-chart-dialog.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -51,7 +52,9 @@ registerLocaleData(localeDeAt);
     LogTypePipe,
     LogFilterComponent,
     MetricDashboardComponent,
-    MetricChartComponent
+    MetricChartComponent,
+    EditMetricChartDialogComponent,
+    EditMetricChartDialogComponent
   ],
   imports: [
     BrowserModule,

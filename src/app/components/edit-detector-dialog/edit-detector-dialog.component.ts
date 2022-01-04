@@ -8,7 +8,7 @@ import { Detector } from 'src/app/models/detector';
 import { IntervalDetector } from 'src/app/models/interval-detector';
 import { MinMaxDetector } from 'src/app/models/min-max-detector';
 import { DetectorService } from 'src/app/services/detector.service';
-import { ValidationHelper } from '../utils/validation-helper';
+import { ValidationHelper } from '../../utils/validation-helper';
 
 @Component({
   selector: 'app-edit-detector-dialog',

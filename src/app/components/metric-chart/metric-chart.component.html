@@ -1,6 +1,20 @@
 <mat-card class="mb-4">
-    <mat-card-title>
-        {{config.name}}
+    <mat-card-title class="d-flex justify-content-between">
+        <h2>{{config.name}}</h2>
+        <div>
+            <button mat-button (click)="editChart()">
+                <mat-icon>
+                    edit
+                </mat-icon>
+                Edit
+            </button>
+            <button mat-button (click)="removeChart()">
+                <mat-icon>
+                    delete
+                </mat-icon>
+                Delete
+            </button>
+        </div>
     </mat-card-title>
     <canvas baseChart height="300" [data]="data" [options]="options" type="line">
     </canvas>
