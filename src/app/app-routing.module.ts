@@ -4,6 +4,7 @@ import { DetectorDetailComponent } from './components/detector-detail/detector-d
 import { DetectorListComponent } from './components/detector-list/detector-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { LogListComponent } from './components/log-list/log-list.component';
+import { MetricDashboardComponent } from './components/metric-dashboard/metric-dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'logs',
     component: LogListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'metrics',
+    component: MetricDashboardComponent,
     canActivate: [AuthGuard]
   }
 ];

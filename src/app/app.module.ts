@@ -23,6 +23,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LogListComponent } from './components/log-list/log-list.component';
 import { LogTypePipe } from './pipes/log-type.pipe';
 import { LogFilterComponent } from './components/log-filter/log-filter.component';
+import { NgChartsModule } from 'ng2-charts';
+import { MetricDashboardComponent } from './components/metric-dashboard/metric-dashboard.component';
+import { MetricChartComponent } from './components/metric-chart/metric-chart.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -46,7 +49,9 @@ registerLocaleData(localeDeAt);
     EditDetectorDialogComponent,
     LogListComponent,
     LogTypePipe,
-    LogFilterComponent
+    LogFilterComponent,
+    MetricDashboardComponent,
+    MetricChartComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,8 @@ registerLocaleData(localeDeAt);
     MaterialModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    NgChartsModule
   ],
   providers: 
   [

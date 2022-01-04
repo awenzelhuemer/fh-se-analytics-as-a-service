@@ -2,19 +2,19 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { DateHelper } from '../components/utils/date-helper';
-import { Log } from '../models/log';
-import { LogType } from '../models/log-type';
+import { Metric } from '../models/metric';
+import { MetricType } from '../models/metric-type';
 import { Paging } from '../models/paging';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LogService {
+export class MetricService {
 
   constructor(private httpClient: HttpClient) { }
 
-  filter(searchText: string | undefined, type: LogType | undefined, from: Date | undefined, to: Date | undefined, appKey: string | undefined, instanceId: string | undefined, count: number, offset: number) {
-    return this.httpClient.get<Paging<Log>>(`${environment.apiBaseUrl}/logs`, {
+  filter(searchText: string | undefined, type: MetricType | undefined, from: Date | undefined, to: Date | undefined, appKey: string | undefined, instanceId: string | undefined, count: number, offset: number) {
+    return this.httpClient.get<Paging<Metric>>(`${environment.apiBaseUrl}/metrics`, {
       params: new HttpParams()
         .append('searchText', searchText ?? "")
         .append('type', type ?? "")
