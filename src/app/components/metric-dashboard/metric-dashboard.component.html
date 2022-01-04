@@ -1,13 +1,13 @@
-<mat-card>
+<mat-card *ngIf="showTitle">
     <mat-card-title class="text-center">
         <h1 class="m-0">Metrics</h1>
     </mat-card-title>
 </mat-card>
 <div class="row mt-4">
     <div class="col-12 col-md-6" *ngFor="let config of chartConfigurations">
-        <app-metric-chart [config]="config" (change)="loadChartConfigurations()"></app-metric-chart>
+        <app-metric-chart [config]="config" (change)="loadChartConfigurations()" [editable]="editable"></app-metric-chart>
     </div>
 </div>
-<button mat-fab color="primary" class="floating-fab" (click)="addChart()">
+<button mat-fab color="primary" class="floating-fab" (click)="addChart()" *ngIf="editable">
     <mat-icon>add</mat-icon>
 </button>

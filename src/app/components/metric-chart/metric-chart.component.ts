@@ -15,6 +15,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 })
 export class MetricChartComponent implements OnInit {
 
+  @Input() editable = true;
   @Input() config!: MetricChartConfig;
 
   data: ChartConfiguration['data'];

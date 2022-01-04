@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MetricChartConfig } from 'src/app/models/metric-chart-config';
 import { DialogService } from 'src/app/services/dialog.service';
 import { MetricService } from 'src/app/services/metric.service';
@@ -12,10 +12,13 @@ export class MetricDashboardComponent implements OnInit {
 
   chartConfigurations: MetricChartConfig[] = [];
 
+  @Input() showTitle = true;
+  @Input() editable = true;
+
   constructor(
     private metricService: MetricService,
     private dialogService: DialogService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.loadChartConfigurations();
@@ -27,7 +30,7 @@ export class MetricDashboardComponent implements OnInit {
 
   addChart() {
     this.dialogService.openAddMetricChartDialog()
-    .afterClosed()
-    .subscribe(() => this.loadChartConfigurations());
+      .afterClosed()
+      .subscribe(() => this.loadChartConfigurations());
   }
 }

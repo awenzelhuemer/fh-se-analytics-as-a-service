@@ -1,6 +1,9 @@
 <mat-card>
-    <mat-card-title><h1>Admin portal for the "Analytics as a Service" tool.</h1></mat-card-title>
-    <mat-card-content>
+    <mat-card-title class="text-center ">
+        <h1 class="m-0">Admin portal
+        </h1>
+    </mat-card-title>
+    <mat-card-content *ngIf="!isSignedIn">
         Sign in to use features like:
         <mat-list>
             <mat-list-item>Viewing and editing detectors</mat-list-item>
@@ -9,3 +12,5 @@
         </mat-list>
     </mat-card-content>
 </mat-card>
+
+<app-metric-dashboard *ngIf="isSignedIn" [showTitle]="false" [editable]="false"></app-metric-dashboard>

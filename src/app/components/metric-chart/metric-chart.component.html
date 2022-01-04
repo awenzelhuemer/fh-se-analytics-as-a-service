@@ -2,13 +2,13 @@
     <mat-card-title class="d-flex justify-content-between">
         <h2>{{config.name}}</h2>
         <div>
-            <button mat-button (click)="editChart()">
+            <button mat-button (click)="editChart()" *ngIf="editable">
                 <mat-icon>
                     edit
                 </mat-icon>
                 Edit
             </button>
-            <button mat-button (click)="removeChart()">
+            <button mat-button (click)="removeChart()" *ngIf="editable">
                 <mat-icon>
                     delete
                 </mat-icon>
