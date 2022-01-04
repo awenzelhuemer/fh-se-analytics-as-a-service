@@ -1,4 +1,5 @@
 import { MetricChartConfigItem } from "./metric-chart-config-item";
+import { MetricChartSize } from "./metric-chart-size";
 
 export interface MetricChartConfig {
     id: string,
@@ -6,5 +7,6 @@ export interface MetricChartConfig {
     appKey?: string,
     instanceId?: string,
     metrics: MetricChartConfigItem[],
-    resultCount: number
+    resultCount: number,
+    size: MetricChartSize
 }

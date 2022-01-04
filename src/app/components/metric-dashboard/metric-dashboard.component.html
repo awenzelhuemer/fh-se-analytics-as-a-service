@@ -4,7 +4,7 @@
     </mat-card-title>
 </mat-card>
 <div class="row mt-4">
-    <div class="col-12 col-md-6" *ngFor="let config of chartConfigurations">
+    <div [ngClass]="getSize(config)" *ngFor="let config of chartConfigurations">
         <app-metric-chart [config]="config" (change)="loadChartConfigurations()" [editable]="editable"></app-metric-chart>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
     <h1 mat-dialog-title>{{isAdd ? "Add chart" : "Edit chart"}}</h1>
     <div mat-dialog-content>
         <div class="row">
@@ -8,6 +8,14 @@
             <mat-form-field class="col-12">
                 <input matInput placeholder="Name" autocomplete="off" formControlName="name">
                 <mat-error>{{getErrorMessage(form.get('name'))}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12">
+                <mat-label>Chart size</mat-label>
+                <mat-select formControlName="size">
+                    <mat-option [value]="size" *ngFor="let size of chartSizes">
+                        {{size | metricChartSize}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
             <mat-form-field class="col-12">
                 <input matInput placeholder="Result count" autocomplete="off" formControlName="resultCount"
@@ -20,15 +28,23 @@
                     <div class="col-6" [formGroup]="metricsForm">
                         <div class="row">
                             <mat-form-field class="col-12">
-                                <input matInput placeholder="Name" autocomplete="off" formControlName="name">
+                                <input matInput placeholder="Name" autocomplete="off" formControlName="name"
+                                    [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let name of filteredNames[i] | async" [value]="name">
+                                        {{name}}
+                                    </mat-option>
+                                </mat-autocomplete>
                                 <mat-error>{{getErrorMessage(metricsForm.get('name'))}}</mat-error>
                             </mat-form-field>
                             <mat-form-field class="col-10">
                                 <input matInput placeholder="Color" autocomplete="off" formControlName="color"
                                     type="color">
                                 <mat-error>{{getErrorMessage(metricsForm.get('color'))}}</mat-error>
+
                             </mat-form-field>
-                            <button class="align-self-center col-2" type="button" mat-icon-button (click)="deleteMetric(i)">
+                            <button class="align-self-center col-2" type="button" mat-icon-button
+                                (click)="deleteMetric(i)">
                                 <mat-icon>delete_forever</mat-icon>
                             </button>
                             <mat-divider></mat-divider>

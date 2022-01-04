@@ -10,13 +10,15 @@ export class MessageService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  showErrorMessage(error: any){
+  showErrorMessage(error: any) {
 
     console.error(error);
 
     let message: string;
 
-    if(error.status == 404){
+    if (error.status == 0) {
+      message = "Can't connect to server.";
+    } else if (error.status == 404) {
       message = "Entity does not exist."
     } else {
       message = `Error performing request, status code = ${error.status}`;
@@ -25,11 +27,11 @@ export class MessageService {
     return this.showMessage(message, "message-error");
   }
 
-  showInfoMessage(message: string){
+  showInfoMessage(message: string) {
     return this.showMessage(message, "message-info");
   }
 
-  private showMessage(message: string, cssClass: string){
+  private showMessage(message: string, cssClass: string) {
     return this.snackBar.open(message, undefined,
       { duration: MessageService.duration, panelClass: cssClass })
   }

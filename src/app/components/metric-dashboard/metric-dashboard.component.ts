@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MetricChartConfig } from 'src/app/models/metric-chart-config';
+import { MetricChartSize } from 'src/app/models/metric-chart-size';
 import { DialogService } from 'src/app/services/dialog.service';
 import { MetricService } from 'src/app/services/metric.service';
 
@@ -32,5 +33,16 @@ export class MetricDashboardComponent implements OnInit {
     this.dialogService.openAddMetricChartDialog()
       .afterClosed()
       .subscribe(() => this.loadChartConfigurations());
+  }
+
+  getSize(config: MetricChartConfig) {
+    switch (config.size) {
+      case MetricChartSize.HalfWidth:
+        return "col-12 col-md-6";
+      case MetricChartSize.FullWidth:
+        return "col-12";
+      default:
+        return "col-auto";
+    }
   }
 }

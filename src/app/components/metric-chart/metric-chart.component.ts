@@ -33,6 +33,8 @@ export class MetricChartComponent implements OnInit {
       datasets: []
     }
     this.options = {
+      maintainAspectRatio: false,
+      responsive: true,
       scales: {
         x: {
           type: 'time'

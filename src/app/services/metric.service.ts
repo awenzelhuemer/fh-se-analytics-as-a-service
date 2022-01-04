@@ -19,6 +19,12 @@ export class MetricService {
     private storageService: StorageService
     ) { }
 
+search(searchText: string | undefined){
+  return this.httpClient.get<string[]>(`${environment.apiBaseUrl}/metrics/search`, {
+    params: new HttpParams().append('searchText', searchText ?? "")
+  })
+}
+
   filter(names: string[], type: MetricType | undefined, from: Date | undefined, to: Date | undefined, appKey: string | undefined, instanceId: string | undefined, count: number, offset: number) {
     
     let params = new HttpParams();

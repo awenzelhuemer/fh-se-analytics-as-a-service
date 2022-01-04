@@ -27,6 +27,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { MetricDashboardComponent } from './components/metric-dashboard/metric-dashboard.component';
 import { MetricChartComponent } from './components/metric-chart/metric-chart.component';
 import { EditMetricChartDialogComponent } from './components/edit-metric-chart-dialog/edit-metric-chart-dialog.component';
+import { MetricChartSizePipe } from './pipes/metric-chart-size.pipe';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -54,7 +55,8 @@ registerLocaleData(localeDeAt);
     MetricDashboardComponent,
     MetricChartComponent,
     EditMetricChartDialogComponent,
-    EditMetricChartDialogComponent
+    EditMetricChartDialogComponent,
+    MetricChartSizePipe
   ],
   imports: [
     BrowserModule,

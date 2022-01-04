@@ -9,9 +9,14 @@ export class LoaderService {
 
   loadingMap: Map<string, boolean> = new Map<string, boolean>();
 
+  disabled: boolean = false;
+
   constructor() { }
 
   setLoading(loading: boolean, url: string): void {
+    if(this.disabled){
+      return;
+    }
     if (!url) {
       throw new Error('The request URL must be provided to the LoadingService.setLoading function');
     }
@@ -24,5 +29,13 @@ export class LoaderService {
     if (this.loadingMap.size === 0) {
       this.loadingSub.next(false);
     }
+  }
+
+  disableLoading() {
+    this.disabled = true;
+  }
+
+  enableLoading() {
+    this.disabled = false;
   }
 }
