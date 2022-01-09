@@ -63,6 +63,12 @@ export class MetricService {
     return this.storageService.get<MetricChartConfig[]>(StorageService.metricConfiguration, []);
   }
 
+  getChartConfigById(id: string) {
+    const configs = this.storageService.get<MetricChartConfig[]>(StorageService.metricConfiguration, []);
+
+    return configs.find(c => c.id === id);
+  }
+
   removeChartConfig(id: string) {
     const configs = this.getAllChartsConfig();
     let index = configs.findIndex(c => c.id == id);

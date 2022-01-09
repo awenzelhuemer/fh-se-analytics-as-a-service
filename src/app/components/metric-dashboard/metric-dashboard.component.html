@@ -3,8 +3,8 @@
         <h1 class="m-0">Metrics</h1>
     </mat-card-title>
 </mat-card>
-<div class="row mt-4">
-    <div [ngClass]="getSize(config)" *ngFor="let config of chartConfigurations">
+<div class="row">
+    <div class="mt-4" [ngClass]="getSize(config)" *ngFor="let config of chartConfigurations">
         <app-metric-chart [config]="config" (change)="loadChartConfigurations()" [editable]="editable"></app-metric-chart>
     </div>
 </div>

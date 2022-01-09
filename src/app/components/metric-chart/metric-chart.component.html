@@ -2,6 +2,12 @@
     <mat-card-title class="d-flex justify-content-between">
         <h2>{{config.name}}</h2>
         <div>
+            <a mat-button [routerLink]="['/metrics/', config.id]">
+                <mat-icon>
+                    insert_chart
+                </mat-icon>
+                Show data
+            </a>
             <button mat-button (click)="editChart()" *ngIf="editable">
                 <mat-icon>
                     edit

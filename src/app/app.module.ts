@@ -28,6 +28,8 @@ import { MetricDashboardComponent } from './components/metric-dashboard/metric-d
 import { MetricChartComponent } from './components/metric-chart/metric-chart.component';
 import { EditMetricChartDialogComponent } from './components/edit-metric-chart-dialog/edit-metric-chart-dialog.component';
 import { MetricChartSizePipe } from './pipes/metric-chart-size.pipe';
+import { MetricListComponent } from './components/metric-list/metric-list.component';
+import { MetricTypePipe } from './pipes/metric-type.pipe';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -56,7 +58,9 @@ registerLocaleData(localeDeAt);
     MetricChartComponent,
     EditMetricChartDialogComponent,
     EditMetricChartDialogComponent,
-    MetricChartSizePipe
+    MetricChartSizePipe,
+    MetricListComponent,
+    MetricTypePipe
   ],
   imports: [
     BrowserModule,
