@@ -17,30 +17,30 @@ export class MetricService {
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService
-    ) { }
+  ) { }
 
-search(searchText: string | undefined){
-  return this.httpClient.get<string[]>(`${environment.apiBaseUrl}/metrics/search`, {
-    params: new HttpParams().append('searchText', searchText ?? "")
-  })
-}
+  search(searchText: string | undefined) {
+    return this.httpClient.get<string[]>(`${environment.apiBaseUrl}/metrics/search`, {
+      params: new HttpParams().append('searchText', searchText ?? "")
+    })
+  }
 
   filter(names: string[], type: MetricType | undefined, from: Date | undefined, to: Date | undefined, appKey: string | undefined, instanceId: string | undefined, count: number, offset: number) {
-    
+
     let params = new HttpParams();
 
-    if(names.length > 0) {
+    if (names.length > 0) {
       names.forEach(n => params = params.append("names", n))
     };
 
     params = params.append('type', type ?? "")
-    .append('from', DateHelper.toIsoString(from))
-    .append('to', DateHelper.toIsoString(to))
-    .append('appKey', appKey ?? "")
-    .append('instanceId', instanceId ?? "")
-    .append('count', count)
-    .append('offset', offset)
-    
+      .append('from', DateHelper.toIsoString(from))
+      .append('to', DateHelper.toIsoString(to))
+      .append('appKey', appKey ?? "")
+      .append('instanceId', instanceId ?? "")
+      .append('count', count)
+      .append('offset', offset)
+
     return this.httpClient.get<Paging<Metric>>(`${environment.apiBaseUrl}/metrics`, {
       params
     });
@@ -50,7 +50,7 @@ search(searchText: string | undefined){
     const configs = this.getAllChartsConfig();
     let index = configs.findIndex(c => c.id == chartConfig.id);
 
-    if(index > -1){
+    if (index > -1) {
       configs[index] = chartConfig;
     } else {
       configs.push(chartConfig);
@@ -67,7 +67,7 @@ search(searchText: string | undefined){
     const configs = this.getAllChartsConfig();
     let index = configs.findIndex(c => c.id == id);
 
-    if(index > -1){
+    if (index > -1) {
       delete configs[index];
     }
 

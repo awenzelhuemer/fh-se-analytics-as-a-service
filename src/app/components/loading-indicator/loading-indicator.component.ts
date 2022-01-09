@@ -18,7 +18,7 @@ export class LoadingIndicatorComponent implements OnInit {
     this.loader.loadingSub
     .pipe(delay(0)) // This prevents a ExpressionChangedAfterItHasBeenCheckedError for subsequent requests
     .subscribe((loading) => {
-      this.loading = loading;
+      this.loading = !this.loader.disabled && loading;
     });
   }
 

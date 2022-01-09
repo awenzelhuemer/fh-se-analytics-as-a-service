@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { LogType } from 'src/app/models/log-type';
 import { InstanceService } from 'src/app/services/instance.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { ValidationHelper } from '../../utils/validation-helper';
 
 @Component({
@@ -13,8 +14,7 @@ import { ValidationHelper } from '../../utils/validation-helper';
 })
 export class LogFilterComponent implements OnInit {
 
-  instances: string[] = [];
-  filteredInstances!: Observable<string[]>;
+  filteredInstanceIds?: Observable<string[]>;
 
   filterForm: FormGroup;
 
@@ -22,27 +22,25 @@ export class LogFilterComponent implements OnInit {
 
   constructor(
     formBuilder: FormBuilder,
+    private loaderService: LoaderService,
     private instanceService: InstanceService) {
     this.filterForm = formBuilder.group({
       searchText: [undefined],
       type: [undefined],
       from: [undefined],
       to: [undefined],
-      instance: [undefined]
+      instanceId: [undefined]
     }); 
   }
 
   ngOnInit(): void {
-    this.filteredInstances = this.filterForm.get('instance')!.valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        const filterValue = value.toLowerCase();
-
-        return this.instances.filter(instance => instance.toLowerCase().includes(filterValue));
-      })
+    this.filteredInstanceIds = this.filterForm.get('instanceId')?.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.loaderService.disableLoading()),
+      switchMap(term => this.instanceService.search(term)),
+      tap(() => this.loaderService.enableLoading())
     );
-
-    this.instanceService.findAllInstances().subscribe(i => this.instances = i.map(i => i.instanceId));
   }
 
   get logTypes() {

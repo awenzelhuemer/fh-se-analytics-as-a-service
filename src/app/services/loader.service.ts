@@ -14,9 +14,6 @@ export class LoaderService {
   constructor() { }
 
   setLoading(loading: boolean, url: string): void {
-    if(this.disabled){
-      return;
-    }
     if (!url) {
       throw new Error('The request URL must be provided to the LoadingService.setLoading function');
     }

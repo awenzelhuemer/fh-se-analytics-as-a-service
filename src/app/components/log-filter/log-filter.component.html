@@ -18,18 +18,17 @@
         </mat-date-range-input>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
-
         <mat-error>{{getErrorMessage(filterForm.get('matStartDateInvalid'))}}</mat-error>
         <mat-error>{{getErrorMessage(filterForm.get('matEndDateInvalid'))}}</mat-error>
     </mat-form-field>
     <mat-form-field class="col-auto">
         <input placeholder="Instance"
                matInput
-               formControlName="instance"
+               formControlName="instanceId"
                [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let instance of filteredInstances | async" [value]="instance">
-            {{instance}}
+          <mat-option *ngFor="let instanceId of filteredInstanceIds | async" [value]="instanceId">
+            {{instanceId}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

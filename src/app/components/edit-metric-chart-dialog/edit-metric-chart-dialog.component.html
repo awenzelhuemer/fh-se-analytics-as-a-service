@@ -22,6 +22,20 @@
                     type="number" min="5">
                 <mat-error>{{getErrorMessage(form.get('resultCount'))}}</mat-error>
             </mat-form-field>
+            <mat-form-field class="col-12">
+                <input matInput placeholder="Instance-Id" autocomplete="off" formControlName="instanceId"
+                [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let instanceId of filteredInstanceIds | async" [value]="instanceId">
+                        {{instanceId}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error>{{getErrorMessage(form.get('instanceId'))}}</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12">
+                <input matInput placeholder="App-Key" autocomplete="off" formControlName="appKey" type="password">
+                <mat-error>{{getErrorMessage(form.get('appKey'))}}</mat-error>
+            </mat-form-field>
             <h2>Metrics</h2>
             <ng-container formArrayName="metrics">
                 <ng-container *ngFor="let metricsForm of metricControls; let i = index">
@@ -41,7 +55,6 @@
                                 <input matInput placeholder="Color" autocomplete="off" formControlName="color"
                                     type="color">
                                 <mat-error>{{getErrorMessage(metricsForm.get('color'))}}</mat-error>
-
                             </mat-form-field>
                             <button class="align-self-center col-2" type="button" mat-icon-button
                                 (click)="deleteMetric(i)">

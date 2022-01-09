@@ -40,7 +40,7 @@ export class LogListComponent implements AfterViewInit {
           this.filterValues?.from,
           this.filterValues?.to,
           undefined,
-          this.filterValues?.instance,
+          this.filterValues?.instanceId,
           this.paginator.pageSize,
           this.paginator.pageIndex
         ))
