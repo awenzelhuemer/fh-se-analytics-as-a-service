@@ -1,0 +1,27 @@
+= Analytics As A Service
+Andreas Wenzelhuemer
+:reproducible:
+:experimental:
+:listing-caption: Listing
+:source-highlighter: rouge
+:rouge-style: github
+:toc:
+:sectnums:
+:sectnumlevels: 6
+:toclevels: 6
+// Variables
+:src: ./../src
+:img: ./img
+:imagesoutdir: ./out
+
+<<<
+== Aufbau
+
+<<<
+== Metriken
+
+<<<
+== Detektoren
+
+<<<
+== Logs
