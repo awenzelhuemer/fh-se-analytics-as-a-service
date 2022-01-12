@@ -18,6 +18,12 @@ export class DetectorService {
     return this.httpClient.get<Detector | undefined>(`${environment.apiBaseUrl}/detectors/${id}`);
   }
 
+  insert(detector: Detector){
+    return this.httpClient.post(`${environment.apiBaseUrl}/detectors`, JSON.stringify(detector), {
+      headers: new HttpHeaders({'Content-Type':  'application/json'})
+    });
+  }
+
   update(detector: Detector){
     return this.httpClient.put(`${environment.apiBaseUrl}/detectors`, JSON.stringify(detector), {
       headers: new HttpHeaders({'Content-Type':  'application/json'})

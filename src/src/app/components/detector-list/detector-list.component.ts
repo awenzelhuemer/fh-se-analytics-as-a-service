@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { Detector } from 'src/app/models/detector';
 import { DetectorService } from 'src/app/services/detector.service';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'app-detector-list',
@@ -19,20 +20,29 @@ export class DetectorListComponent implements OnInit {
     "lastExecuted"
   ];
 
-  constructor(private detectorService: DetectorService) { }
+  constructor(
+    private detectorService: DetectorService,
+    private dialogService: DialogService
+    ) { }
 
   ngOnInit(): void {
-    this.load();
+    this.loadDetectors();
   }
 
   onActiveChange(detector: Detector) {
     detector.activated = !detector.activated;
-    this.detectorService.update(detector).subscribe(() => this.load());
+    this.detectorService.update(detector).subscribe(() => this.loadDetectors());
   }
 
-  load() {
+  loadDetectors() {
     this.detectorService.findAll().subscribe(d => {
       this.dataSource = d;
     });
+  }
+
+  addDetector() {
+    this.dialogService.openAddDetectorDialog()
+      .afterClosed()
+      .subscribe(() => this.loadDetectors());
   }
 }

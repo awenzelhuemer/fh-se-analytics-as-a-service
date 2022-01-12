@@ -1,7 +1,7 @@
 import { ActionType } from "./action-type";
 
 export interface Action {
-    id: string,
+    id: number,
     type: ActionType,
     endpoint: string
 }

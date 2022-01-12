@@ -1,18 +1,18 @@
 <mat-card>
-    <mat-card-title class="text-center mt-2">
+    <mat-card-title class="text-center justify-content-between d-flex">
+        <span></span>
         <h1>Detectors</h1>
-    </mat-card-title>
-    <mat-card-actions class="d-flex justify-content-end">
-        <button mat-button (click)="load()">
+        <button mat-button (click)="loadDetectors()">
             <mat-icon>refresh</mat-icon>
         </button>
-    </mat-card-actions>
+    </mat-card-title>
     <table class="w-100" mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="activated">
             <th mat-header-cell *matHeaderCellDef>Active</th>
             <td mat-cell *matCellDef="let row">
                 <mat-chip-list>
-                    <mat-chip color="primary" [selected]="row.activated" (click)="onActiveChange(row)">{{row.activated ?
+                    <mat-chip color="primary" [selected]="row.activated" (click)="onActiveChange(row)">
+                        {{row.activated ?
                         'On' : 'Off'}}</mat-chip>
                 </mat-chip-list>
             </td>
@@ -32,8 +32,11 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/detectors/', row.id]"
             class="selectable"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data found.</td>
+        </tr>
     </table>
 </mat-card>
-<button mat-fab color="primary" class="floating-fab" *ngIf="false">
+<button mat-fab color="primary" class="floating-fab" (click)="addDetector()">
     <mat-icon>add</mat-icon>
 </button>

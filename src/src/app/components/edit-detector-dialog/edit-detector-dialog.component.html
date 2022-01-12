@@ -10,10 +10,20 @@
                 <div>&nbsp;</div>
                 <mat-slide-toggle color="primary" formControlName="activated">Active</mat-slide-toggle>
             </div>
-            <mat-form-field class="col-12">
-                <input matInput placeholder="Execution Interval" formControlName="interval" autocomplete="off" type="time">
-                <mat-error>{{getErrorMessage(editForm.get('interval'))}}</mat-error>
-            </mat-form-field>
+            <ng-container formGroupName="interval">
+                <mat-form-field class="col-4">
+                    <mat-label>Execution Interval</mat-label>
+                    <div class="d-flex justify-content-between">
+                        <input matInput formControlName="hours" autocomplete="off" type="number" min="0"
+                            class="text-right">
+                        <span class="me-3" matSuffix>h</span>
+                        <input matInput formControlName="minutes" autocomplete="off" type="number" min="0" max="59">
+                        <span class="me-3" matSuffix>m</span>
+                        <input matInput formControlName="seconds" autocomplete="off" type="number" min="0" max="59">
+                        <span matSuffix>s</span>
+                    </div>
+                </mat-form-field>
+            </ng-container>
             <ng-container *ngIf="editForm.get('intervalDetector')?.value" formGroupName="intervalDetector">
                 <mat-form-field class="col-4">
                     <mat-label>Aggregate operation</mat-label>
@@ -54,10 +64,20 @@
                     <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.maxHits'))}}</mat-error>
                 </mat-form-field>
             </ng-container>
-            <mat-form-field class="col-12">
-                <input matInput placeholder="Offset" formControlName="offset" autocomplete="off" type="time">
-                <mat-error>{{getErrorMessage(editForm.get('offset'))}}</mat-error>
-            </mat-form-field>
+            <ng-container formGroupName="offset">
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Offset (h)" formControlName="hours" autocomplete="off" type="number"
+                        min="0">
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Offset (m)" formControlName="minutes" autocomplete="off" type="number"
+                        min="0" max="59">
+                </mat-form-field>
+                <mat-form-field class="col-4">
+                    <input matInput placeholder="Offset (s)" formControlName="seconds" autocomplete="off" type="number"
+                        min="0" max="59">
+                </mat-form-field>
+            </ng-container>
             <ng-container formGroupName="action">
                 <mat-form-field class="col-4">
                     <mat-label>Action type</mat-label>

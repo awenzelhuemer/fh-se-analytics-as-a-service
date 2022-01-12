@@ -5,10 +5,13 @@ import { ActionType } from 'src/app/models/action-type';
 import { AggregateOperation } from 'src/app/models/aggregate-operation';
 import { CompareType } from 'src/app/models/compare-type';
 import { Detector } from 'src/app/models/detector';
+import { Action } from 'src/app/models/action';
 import { IntervalDetector } from 'src/app/models/interval-detector';
 import { MinMaxDetector } from 'src/app/models/min-max-detector';
 import { DetectorService } from 'src/app/services/detector.service';
 import { ValidationHelper } from 'src/app/utils/validation-helper';
+import { NumberHelper } from 'src/app/utils/number-helper';
+import { Interval } from 'src/app/models/interval';
 
 @Component({
   selector: 'app-edit-detector-dialog',
@@ -22,21 +25,34 @@ export class EditDetectorDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<EditDetectorDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private detectorId: number,
     private formBuilder: FormBuilder,
-    private detectorService: DetectorService
+    private detectorService: DetectorService,
+    @Inject(MAT_DIALOG_DATA) private detectorId?: number
   ) { }
 
   ngOnInit(): void {
-    this.detectorService.findById(this.detectorId).subscribe(detector => {
-
-      this.detector = detector;
+    if (this.detectorId) {
+      this.detectorService.findById(this.detectorId).subscribe(detector => {
+        this.detector = detector;
+        this.initForm();
+      });
+    } else {
+      this.detector = <Detector>{
+        id: 0,
+        activated: true,
+        action: <Action>{ id: 0 },
+        intervalDetector: <IntervalDetector>{ id: 0 }
+      };
       this.initForm();
-    })
+    }
   }
 
   initForm() {
     if (this.detector) {
+
+      const offset = NumberHelper.getIntervalData(this.detector.offset);
+      const interval = NumberHelper.getIntervalData(this.detector.interval);
+
       this.editForm = this.formBuilder.group({
         id: [this.detector.id],
         action: this.formBuilder.group({
@@ -45,8 +61,8 @@ export class EditDetectorDialogComponent implements OnInit {
           endpoint: [this.detector.action.endpoint, Validators.required]
         }),
         metricName: [this.detector.metricName, Validators.required],
-        interval: [this.detector.interval, Validators.required],
-        offset: [this.detector.offset, Validators.required],
+        interval: this.formBuilder.group(interval),
+        offset: this.formBuilder.group(offset),
         activated: [this.detector.activated, Validators.required],
         lastExecuted: [this.detector.lastExecuted],
         minMaxDetector: this.detector.minMaxDetector ? this.formBuilder.group({
@@ -75,7 +91,7 @@ export class EditDetectorDialogComponent implements OnInit {
   }
 
   private setActionEndpointValidators(type: ActionType) {
-    if(type == ActionType.Email){
+    if (type == ActionType.Email) {
       this.editForm?.get('action.endpoint')?.addValidators(Validators.email);
     } else {
       this.editForm?.get('action.endpoint')?.removeValidators(Validators.email);
@@ -105,8 +121,20 @@ export class EditDetectorDialogComponent implements OnInit {
   }
 
   submit() {
-    const detector: Detector = this.editForm?.value;
-    this.detectorService.update(detector).subscribe(() => this.dialogRef.close());
+    const offset: Interval = this.editForm!.get('offset')?.value;
+    const interval: Interval = this.editForm!.get('interval')?.value;
+
+    const detector: Detector = {...this.editForm?.value,
+      offset: NumberHelper.getIntervalString(offset),
+      interval: NumberHelper.getIntervalString(interval),
+      lastExecuted: this.detector?.id == 0 ? new Date() : this.detector?.lastExecuted
+    };
+
+    if(detector.id == 0) {
+      this.detectorService.insert(detector).subscribe(() => this.dialogRef.close());
+    } else {
+      this.detectorService.update(detector).subscribe(() => this.dialogRef.close());
+    }
   }
 
   cancel() {

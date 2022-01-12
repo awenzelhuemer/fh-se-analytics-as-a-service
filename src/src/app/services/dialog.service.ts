@@ -16,6 +16,10 @@ export class DialogService {
     private dialog: MatDialog
   ) { }
 
+  openAddDetectorDialog() {
+    return this.dialog.open(EditDetectorDialogComponent, { width: DialogService.defaultWidth });
+  }
+
   openEditDetectorDialog(detectorId: number) {
     return this.dialog.open(EditDetectorDialogComponent, { data: detectorId, width: DialogService.defaultWidth });
   }

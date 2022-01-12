@@ -30,6 +30,7 @@ import { EditMetricChartDialogComponent } from './components/edit-metric-chart-d
 import { MetricChartSizePipe } from './pipes/metric-chart-size.pipe';
 import { MetricListComponent } from './components/metric-list/metric-list.component';
 import { MetricTypePipe } from './pipes/metric-type.pipe';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -70,7 +71,8 @@ registerLocaleData(localeDeAt);
     ReactiveFormsModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
-    NgChartsModule
+    NgChartsModule,
+    NgxMaterialTimepickerModule
   ],
   providers: 
   [
