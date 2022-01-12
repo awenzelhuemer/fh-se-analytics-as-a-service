@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Detector } from 'src/app/models/detector';
 import { DetectorService } from 'src/app/services/detector.service';
 import { DialogService } from 'src/app/services/dialog.service';
@@ -16,6 +16,7 @@ export class DetectorDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private detectorService: DetectorService,
     private dialogService: DialogService
   ) { }
@@ -40,8 +41,14 @@ export class DetectorDetailComponent implements OnInit {
   edit(): void {
     if (this.detector) {
       this.dialogService.openEditDetectorDialog(this.detector.id)
-      .afterClosed()
-      .subscribe(() => this.loadDetector());
+        .afterClosed()
+        .subscribe(() => this.loadDetector());
+    }
+  }
+
+  delete() {
+    if (this.detector) {
+      this.detectorService.delete(this.detector?.id).subscribe(d => this.router.navigate(["/detectors"]));
     }
   }
 }

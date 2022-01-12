@@ -1,84 +1,84 @@
 <form [formGroup]="editForm" (ngSubmit)="submit()" *ngIf="editForm">
     <h1 mat-dialog-title>Edit Detector</h1>
     <div mat-dialog-content>
-        <div class="row">
-            <mat-form-field class="col-8">
-                <input matInput placeholder="Name" formControlName="metricName" autocomplete="off">
-                <mat-error>{{getErrorMessage(editForm.get('metricName'))}}</mat-error>
-            </mat-form-field>
-            <div class="col-4">
-                <div>&nbsp;</div>
-                <mat-slide-toggle color="primary" formControlName="activated">Active</mat-slide-toggle>
-            </div>
-            <ng-container formGroupName="interval">
-                <mat-form-field class="col-4">
-                    <mat-label>Execution Interval</mat-label>
-                    <div class="d-flex justify-content-between">
-                        <input matInput formControlName="hours" autocomplete="off" type="number" min="0"
-                            class="text-right">
-                        <span class="me-3" matSuffix>h</span>
-                        <input matInput formControlName="minutes" autocomplete="off" type="number" min="0" max="59">
-                        <span class="me-3" matSuffix>m</span>
-                        <input matInput formControlName="seconds" autocomplete="off" type="number" min="0" max="59">
-                        <span matSuffix>s</span>
+        <mat-card class="mat-elevation-z8 mb-2">
+            <mat-card-title>
+                <h2>Common</h2>
+            </mat-card-title>
+            <mat-card-content>
+                <div class="row">
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Name" formControlName="metricName" autocomplete="off">
+                        <mat-error>{{getErrorMessage(editForm.get('metricName'))}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Execution Interval" formControlName="interval" autocomplete="off"
+                            type="time" step="1">
+                        <mat-error>{{getErrorMessage(editForm.get('interval'))}}</mat-error>
+                    </mat-form-field>
+                    <div class="col-4">
+                        <div>&nbsp;</div>
+                        <mat-slide-toggle color="primary" formControlName="activated">Active</mat-slide-toggle>
                     </div>
-                </mat-form-field>
-            </ng-container>
-            <ng-container *ngIf="editForm.get('intervalDetector')?.value" formGroupName="intervalDetector">
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="mat-elevation-z8 mb-2">
+            <mat-card-title>
+                <h2>Interval detector</h2>
+            </mat-card-title>
+            <mat-card-content class="row">
+                <ng-container *ngIf="editForm.get('intervalDetector')?.value" formGroupName="intervalDetector">
+                    <mat-form-field class="col-4">
+                        <mat-label>Aggregate operation</mat-label>
+                        <mat-select formControlName="aggregateOperation">
+                            <mat-option [value]="operation" *ngFor="let operation of aggregateOperations">
+                                {{operation | aggregateOperation}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <mat-label>Compare type</mat-label>
+                        <mat-select formControlName="compareType">
+                            <mat-option [value]="compareType" *ngFor="let compareType of compareTypes">
+                                {{compareType | compareType}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Threshold" formControlName="threshold" autocomplete="off"
+                            type="number" min="0">
+                        <mat-error>{{getErrorMessage(editForm.get('threshold'))}}</mat-error>
+                    </mat-form-field>
+                </ng-container>
+                <ng-container *ngIf="editForm.get('minMaxDetector')?.value" formGroupName="minMaxDetector">
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Lower Threshold" formControlName="lowerThreshold"
+                            autocomplete="off" type="number" min="0">
+                        <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.lowerThreshold'))}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Upper Threshold" formControlName="upperThreshold"
+                            autocomplete="off" type="number" min="0">
+                        <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.upperThreshold'))}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-4">
+                        <input matInput placeholder="Max hits" formControlName="maxHits" autocomplete="off"
+                            type="number" min="0">
+                        <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.maxHits'))}}</mat-error>
+                    </mat-form-field>
+                </ng-container>
                 <mat-form-field class="col-4">
-                    <mat-label>Aggregate operation</mat-label>
-                    <mat-select formControlName="aggregateOperation">
-                        <mat-option [value]="operation" *ngFor="let operation of aggregateOperations">
-                            {{operation | aggregateOperation}}
-                        </mat-option>
-                    </mat-select>
+                    <input matInput placeholder="Offset" formControlName="offset" autocomplete="off" type="time" step="1">
+                    <mat-error>{{getErrorMessage(editForm.get('offset'))}}</mat-error>
                 </mat-form-field>
-                <mat-form-field class="col-4">
-                    <mat-label>Compare type</mat-label>
-                    <mat-select formControlName="compareType">
-                        <mat-option [value]="compareType" *ngFor="let compareType of compareTypes">
-                            {{compareType | compareType}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="col-4">
-                    <input matInput placeholder="Threshold" formControlName="threshold" autocomplete="off" type="number"
-                        min="0">
-                    <mat-error>{{getErrorMessage(editForm.get('threshold'))}}</mat-error>
-                </mat-form-field>
-            </ng-container>
-            <ng-container *ngIf="editForm.get('minMaxDetector')?.value" formGroupName="minMaxDetector">
-                <mat-form-field class="col-4">
-                    <input matInput placeholder="Lower Threshold" formControlName="lowerThreshold" autocomplete="off"
-                        type="number" min="0">
-                    <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.lowerThreshold'))}}</mat-error>
-                </mat-form-field>
-                <mat-form-field class="col-4">
-                    <input matInput placeholder="Upper Threshold" formControlName="upperThreshold" autocomplete="off"
-                        type="number" min="0">
-                    <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.upperThreshold'))}}</mat-error>
-                </mat-form-field>
-                <mat-form-field class="col-4">
-                    <input matInput placeholder="Max hits" formControlName="maxHits" autocomplete="off" type="number"
-                        min="0">
-                    <mat-error>{{getErrorMessage(editForm.get('minMaxDetector.maxHits'))}}</mat-error>
-                </mat-form-field>
-            </ng-container>
-            <ng-container formGroupName="offset">
-                <mat-form-field class="col-4">
-                    <input matInput placeholder="Offset (h)" formControlName="hours" autocomplete="off" type="number"
-                        min="0">
-                </mat-form-field>
-                <mat-form-field class="col-4">
-                    <input matInput placeholder="Offset (m)" formControlName="minutes" autocomplete="off" type="number"
-                        min="0" max="59">
-                </mat-form-field>
-                <mat-form-field class="col-4">
-                    <input matInput placeholder="Offset (s)" formControlName="seconds" autocomplete="off" type="number"
-                        min="0" max="59">
-                </mat-form-field>
-            </ng-container>
-            <ng-container formGroupName="action">
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="mat-elevation-z8 mb-2">
+            <mat-card-title>
+                <h2>Action</h2>
+            </mat-card-title>
+            <mat-card-content class="row" formGroupName="action">
                 <mat-form-field class="col-4">
                     <mat-label>Action type</mat-label>
                     <mat-select formControlName="type">
@@ -91,8 +91,8 @@
                     <input matInput placeholder="Endpoint" formControlName="endpoint" autocomplete="off">
                     <mat-error>{{getErrorMessage(editForm.get('action.endpoint'))}}</mat-error>
                 </mat-form-field>
-            </ng-container>
-        </div>
+            </mat-card-content>
+        </mat-card>
     </div>
     <div mat-dialog-actions>
         <button type="submit" mat-raised-button color="primary" [disabled]="!editForm.valid">Save</button>

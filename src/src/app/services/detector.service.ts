@@ -24,6 +24,10 @@ export class DetectorService {
     });
   }
 
+  delete(id: number){
+    return this.httpClient.delete(`${environment.apiBaseUrl}/detectors/${id}`);
+  }
+
   update(detector: Detector){
     return this.httpClient.put(`${environment.apiBaseUrl}/detectors`, JSON.stringify(detector), {
       headers: new HttpHeaders({'Content-Type':  'application/json'})

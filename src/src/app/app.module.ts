@@ -71,8 +71,7 @@ registerLocaleData(localeDeAt);
     ReactiveFormsModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
-    NgChartsModule,
-    NgxMaterialTimepickerModule
+    NgChartsModule
   ],
   providers: 
   [

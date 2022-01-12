@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActionType } from 'src/app/models/action-type';
@@ -49,10 +49,6 @@ export class EditDetectorDialogComponent implements OnInit {
 
   initForm() {
     if (this.detector) {
-
-      const offset = NumberHelper.getIntervalData(this.detector.offset);
-      const interval = NumberHelper.getIntervalData(this.detector.interval);
-
       this.editForm = this.formBuilder.group({
         id: [this.detector.id],
         action: this.formBuilder.group({
@@ -61,8 +57,8 @@ export class EditDetectorDialogComponent implements OnInit {
           endpoint: [this.detector.action.endpoint, Validators.required]
         }),
         metricName: [this.detector.metricName, Validators.required],
-        interval: this.formBuilder.group(interval),
-        offset: this.formBuilder.group(offset),
+        interval: [this.detector.interval, Validators.required],
+        offset: [this.detector.offset, Validators.required],
         activated: [this.detector.activated, Validators.required],
         lastExecuted: [this.detector.lastExecuted],
         minMaxDetector: this.detector.minMaxDetector ? this.formBuilder.group({
@@ -78,7 +74,6 @@ export class EditDetectorDialogComponent implements OnInit {
           threshold: [this.detector.intervalDetector?.threshold, Validators.required],
         }) : null
       });
-
       this.setActionEndpointValidators(this.detector.action.type);
 
       const actionTypeControl = this.editForm.get('action.type');
@@ -121,12 +116,7 @@ export class EditDetectorDialogComponent implements OnInit {
   }
 
   submit() {
-    const offset: Interval = this.editForm!.get('offset')?.value;
-    const interval: Interval = this.editForm!.get('interval')?.value;
-
     const detector: Detector = {...this.editForm?.value,
-      offset: NumberHelper.getIntervalString(offset),
-      interval: NumberHelper.getIntervalString(interval),
       lastExecuted: this.detector?.id == 0 ? new Date() : this.detector?.lastExecuted
     };
 

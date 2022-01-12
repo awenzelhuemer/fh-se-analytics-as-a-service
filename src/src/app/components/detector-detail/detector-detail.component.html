@@ -4,13 +4,13 @@
             <mat-icon>arrow_back</mat-icon>
         </a>
         <div class="d-flex">
-            <h1 class="d-flex">Detector {{detector?.metricName}}</h1>
+            <h1 class="d-flex">Detector for Metric "{{detector?.metricName}}"</h1>
             <mat-chip-list class="ms-3" *ngIf="detector">
                 <mat-chip color="primary" selected="true" *ngIf="detector.activated">On</mat-chip>
                 <mat-chip *ngIf="!detector.activated">Off</mat-chip>
             </mat-chip-list>
         </div>
-        <span></span> <!-- For flex -->
+        <span></span><!-- For flex -->
     </mat-card-title>
     <mat-card-subtitle *ngIf="detector">
         Last executed: {{detector.lastExecuted | date : 'medium'}}
@@ -49,6 +49,11 @@
     </mat-card-content>
 </mat-card>
 
-<button mat-fab color="primary" class="floating-fab" (click)="edit()" *ngIf="detector">
+<ng-container *ngIf="detector">
+  <button mat-fab color="error" class="floating-fab-secondary" (click)="delete()">
+    <mat-icon>delete</mat-icon>
+  </button>
+<button mat-fab color="primary" class="floating-fab" (click)="edit()">
     <mat-icon>edit</mat-icon>
 </button>
+</ng-container>
