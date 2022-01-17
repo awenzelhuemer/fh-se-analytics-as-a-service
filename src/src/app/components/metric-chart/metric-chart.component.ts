@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ChartConfiguration, ChartDataset, ChartEvent, ChartOptions, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Metric } from 'src/app/models/metric';
 import { MetricService } from 'src/app/services/metric.service';
@@ -18,8 +18,8 @@ export class MetricChartComponent implements OnInit {
   @Input() editable = true;
   @Input() config!: MetricChartConfig;
 
-  data: ChartConfiguration['data'];
-  options: ChartConfiguration['options'];
+  data: ChartData;
+  options: ChartOptions;
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
@@ -43,16 +43,6 @@ export class MetricChartComponent implements OnInit {
         {
           position: 'left',
         },
-        'y-axis-1': {
-          position: 'right',
-          grid: {
-            color: 'gray',
-          },
-
-          ticks: {
-            color: 'white'
-          }
-        }
       },
       plugins: {
         legend: {

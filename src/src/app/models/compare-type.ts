@@ -1,4 +1,4 @@
 export enum CompareType {
-    Smaller = 0,
-    Greater = 1
+    Smaller = "Smaller",
+    Greater = "Greater"
 }

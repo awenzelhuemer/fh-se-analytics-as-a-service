@@ -1,4 +1,4 @@
 export enum MetricType {
-    Counter = 0,
-    Measurement = 1
+    Counter = "Counter",
+    Measurement = "Measurement"
 }
