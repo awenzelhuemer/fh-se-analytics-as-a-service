@@ -10,13 +10,15 @@ export class MessageService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  showErrorMessage(error: any) {
+  showErrorMessage(error: string | {status: number}) {
 
     console.error(error);
 
     let message: string;
 
-    if (error.status == 0) {
+    if (typeof(error) === 'string') {
+      message = error;
+    } else if (error.status == 0) {
       message = "Can't connect to server.";
     } else if (error.status == 404) {
       message = "Entity does not exist."

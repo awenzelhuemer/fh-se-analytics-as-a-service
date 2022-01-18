@@ -33,12 +33,12 @@ body {
     bottom: 100px;
   }
 
-.message-error {
+.card-error, .message-error {
     color: white;
     background-color: #dc3545;
 }
 
-.message-info {
+.card-info, .message-info {
     color: black;
     background-color: #0dcaf0;
 }

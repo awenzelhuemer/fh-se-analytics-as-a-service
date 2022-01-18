@@ -31,6 +31,9 @@ import { MetricChartSizePipe } from './pipes/metric-chart-size.pipe';
 import { MetricListComponent } from './components/metric-list/metric-list.component';
 import { MetricTypePipe } from './pipes/metric-type.pipe';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ClientListComponent } from './components/client-list/client-list.component';
+import { AppKeyPipe } from './pipes/app-key.pipe';
+import { AddClientDialogComponent } from './components/add-client-dialog/add-client-dialog.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -61,7 +64,10 @@ registerLocaleData(localeDeAt);
     EditMetricChartDialogComponent,
     MetricChartSizePipe,
     MetricListComponent,
-    MetricTypePipe
+    MetricTypePipe,
+    ClientListComponent,
+    AppKeyPipe,
+    AddClientDialogComponent
   ],
   imports: [
     BrowserModule,

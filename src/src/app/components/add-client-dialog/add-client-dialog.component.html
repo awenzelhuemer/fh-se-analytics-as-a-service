@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Create client</h1>
+<div mat-dialog-content>
+    <button mat-raised-button color="primary" matSuffix *ngIf="!client" (click)="createClient()" class="w-100">Generate
+        App-Key</button>
+    <mat-card class="card-info mb-4" *ngIf="client">
+        <mat-card-content>
+            <p>Make sure to copy your app key now. You wont be able to see it again!</p>
+        </mat-card-content>
+    </mat-card>
+    <mat-form-field appearance="outline" class="w-100" *ngIf="client">
+        <mat-label>App-Key</mat-label>
+        <input matInput type="text" [value]="client.appKey" [disabled]="true">
+        <button mat-icon-button matSuffix (click)="copyAppKey()" matTooltip="Copy to clipboard">
+            <mat-icon>content_copy</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [color]="client ? 'accent' : 'error'" (click)="close()">{{client ? 'Close' : 'Cancel'}}</button>
+</div>

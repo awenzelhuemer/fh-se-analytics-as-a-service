@@ -36,6 +36,8 @@
             <td class="mat-cell" colspan="4">No data found.</td>
         </tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons>
+    </mat-paginator>
 </mat-card>
 <button mat-fab color="primary" class="floating-fab" (click)="addDetector()">
     <mat-icon>add</mat-icon>

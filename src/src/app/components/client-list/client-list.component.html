@@ -1,0 +1,34 @@
+<mat-card>
+    <mat-card-title class="text-center justify-content-between d-flex">
+        <span></span>
+        <h1>Clients</h1>
+        <button mat-button (click)="loadClients()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+    </mat-card-title>
+    <table class="w-100" mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let row">
+                {{row.id}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="appKey">
+            <th mat-header-cell *matHeaderCellDef>App-Key</th>
+            <td mat-cell *matCellDef="let row">
+                {{row.appKey | appKey}}
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="2">No data found.</td>
+        </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]"
+                 showFirstLastButtons>
+  </mat-paginator>
+</mat-card>
+<button mat-fab color="primary" class="floating-fab" (click)="addClient()">
+    <mat-icon>add</mat-icon>
+</button>

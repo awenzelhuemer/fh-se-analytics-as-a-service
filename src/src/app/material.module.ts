@@ -20,6 +20,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   exports: [
@@ -44,6 +45,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     , MatChipsModule
     , MatPaginatorModule
     , MatNativeDateModule
+    , MatTooltipModule
   ]
 })
 
