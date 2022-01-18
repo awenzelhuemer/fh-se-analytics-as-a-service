@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  @Output() toggleClick = new EventEmitter<any>();
 
   constructor(
     private authService: AuthService,
@@ -28,6 +30,10 @@ export class NavbarComponent implements OnInit {
   signOut() {
     this.authService.signOut();
     this.router.navigateByUrl("/home");
+  }
+
+  toggle() {
+    this.toggleClick.emit();
   }
 
 }

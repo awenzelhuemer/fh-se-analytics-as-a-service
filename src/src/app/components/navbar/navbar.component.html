@@ -1,24 +1,9 @@
-<mat-toolbar color="primary" class="row justify-content-between w-100 g-0">
-    <div class="col-auto">
-        <a mat-button routerLink="/home">AaaS</a>
-    </div>
-    <div class="col-auto" *ngIf="isSignedIn">
-        <a mat-button routerLink="/clients">
-            <mat-icon>computer</mat-icon>
-            Clients
-        </a>
-        <a mat-button routerLink="/detectors">
-            <mat-icon>schedule</mat-icon>
-            Detectors
-        </a>
-        <a mat-button routerLink="/metrics">
-            <mat-icon>insert_chart</mat-icon>
-            Metrics
-        </a>
-        <a mat-button routerLink="/logs">
-            <mat-icon>info</mat-icon>
-            Logs
-        </a>
+<mat-toolbar color="primary" class="d-flex justify-content-between">
+    <div class="col-auto d-flex align-items-center">
+        <button mat-icon-button (click)="toggle()" *ngIf="isSignedIn">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <a mat-button class="app-name" routerLink="/">AaaS</a>
     </div>
     <div class="col-auto">
         <button mat-button (click)="isSignedIn ? signOut() : signIn()">
