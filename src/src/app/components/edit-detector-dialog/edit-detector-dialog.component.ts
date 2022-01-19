@@ -10,8 +10,6 @@ import { IntervalDetector } from 'src/app/models/interval-detector';
 import { MinMaxDetector } from 'src/app/models/min-max-detector';
 import { DetectorService } from 'src/app/services/detector.service';
 import { ValidationHelper } from 'src/app/utils/validation-helper';
-import { NumberHelper } from 'src/app/utils/number-helper';
-import { Interval } from 'src/app/models/interval';
 
 @Component({
   selector: 'app-edit-detector-dialog',
@@ -45,6 +43,10 @@ export class EditDetectorDialogComponent implements OnInit {
       };
       this.initForm();
     }
+  }
+
+  get isNew() {
+    return !this.detector || this.detector.id == 0;
   }
 
   initForm() {

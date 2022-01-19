@@ -1,36 +1,28 @@
-<mat-card class="mb-4 text-center">
-    <mat-card-title class="d-flex justify-content-between">
-        <a mat-button routerLink="/detectors">
-            <mat-icon>arrow_back</mat-icon>
-        </a>
-        <div class="d-flex">
-            <h1 class="d-flex">Detector for Metric "{{detector?.metricName}}"</h1>
-            <mat-chip-list class="ms-3" *ngIf="detector">
-                <mat-chip color="primary" selected="true" *ngIf="detector.activated">On</mat-chip>
-                <mat-chip *ngIf="!detector.activated">Off</mat-chip>
-            </mat-chip-list>
-        </div>
-        <span></span><!-- For flex -->
-    </mat-card-title>
-    <mat-card-subtitle *ngIf="detector">
-        Last executed: {{detector.lastExecuted | date : 'medium'}}
-    </mat-card-subtitle>
-</mat-card>
-<mat-card class="mb-4" *ngIf="detector">
+<div class="row justify-content-center">
+    <h1 class="col-auto text-center">Detector for Metric "{{detector?.metricName}}"</h1>
+    <mat-chip-list class="col-auto" *ngIf="detector">
+        <mat-chip color="primary" selected="true" *ngIf="detector.activated">On</mat-chip>
+        <mat-chip *ngIf="!detector.activated">Off</mat-chip>
+    </mat-chip-list>
+</div>
+<div class="text-center mt-2">
+    Last executed: {{detector?.lastExecuted | date : 'medium'}}
+</div>
+<mat-card class="mt-4" *ngIf="detector">
     <mat-card-title class="text-center">
         <h2>Details</h2>
     </mat-card-title>
     <mat-card-content>
         <div class="row">
-            <div class="col-6 col-lg-4">
+            <div class="col-12 col-lg-4">
                 <div class="property-name">Execution Interval</div>
                 <div class="property">{{detector.interval}}</div>
             </div>
-            <div class="col-6 col-lg-4">
-                <div class="property-name">Action</div>
-                <div class="property">{{detector.action.type | actionType}} ({{detector.action.endpoint}})</div>
+            <div class="col-12 col-lg-4">
+                <div class="property-name">Action ({{detector.action.type | actionType}})</div>
+                <div class="property">({{detector.action.endpoint}})</div>
             </div>
-            <div class="col-6 col-lg-4">
+            <div class="col-12 col-lg-4">
                 <div class="property-name">Triggers when</div>
                 <p class="property" *ngIf="detector.intervalDetector">
                     {{detector.intervalDetector.aggregateOperation | aggregateOperation}}
@@ -50,10 +42,10 @@
 </mat-card>
 
 <ng-container *ngIf="detector">
-  <button mat-fab color="error" class="floating-fab-secondary" (click)="delete()">
-    <mat-icon>delete</mat-icon>
-  </button>
-<button mat-fab color="primary" class="floating-fab" (click)="edit()">
-    <mat-icon>edit</mat-icon>
-</button>
+    <button mat-fab color="error" class="floating-fab-secondary" (click)="delete()">
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-fab color="primary" class="floating-fab" (click)="edit()">
+        <mat-icon>edit</mat-icon>
+    </button>
 </ng-container>

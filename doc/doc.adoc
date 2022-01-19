@@ -1,0 +1,193 @@
+= Analytics As A Service
+Andreas Wenzelhuemer
+:reproducible:
+:experimental:
+:listing-caption: Listing
+:source-highlighter: rouge
+:rouge-style: github
+:toc:
+:sectnums:
+:sectnumlevels: 6
+:toclevels: 6
+// Variables
+:src: ./../src
+:img: ./img
+:imagesoutdir: ./out
+
+<<<
+== Aufwand
+Der Aufwand betrug aufgrund Vorerfahrung ~15h.
+
+== Pakete
+
+Verwendet wurde folgende Pakete:
+
+- Angular: `@angular 13.1.1`
+- Authentifizierung: `angular-oauth2-oidc 13.0.1`
+- Styling: `@angular/material 13.1.1`
+- Charts: `ng2-charts 3.0.5`
+
+== Aufbau
+
+Das Projekt wurde strukturell auf folgende Teile aufgeteilt:
+
+- components (Angular Komponenten)
+- guards (AuthGuard)
+- interceptors (HTTP-Request Interceptor)
+- models (Interfaces und Enums)
+- pipes (Pipes zum Darstellen von Enums)
+- services (Services zum Zugreifen auf die Web-API, LocalStorage und Anzeige von Ladeanimationen)
+- utils (Klassen mit statischen Hilfsmethoden wie zum Beispiel für die Formatierung von Validierungsfehlern)
+
+== Übersicht
+
+Ganz oben wird eine Navbar angezeigt, wo man sich entsprechend ab-/anmelden kann.
+Darunter wird eine Angular-Sidebar-Komponente angezeigt, wo die entsprechenden Pages ausgewählt werden können.
+Dies ist aber nur möglich, wenn man auch angemeldet ist.
+
+.Übersicht
+image::{img}/overview.png[]
+
+<<<
+== Authentifizierung
+
+Hier wurde kein eigener Keycloak-Server verwendet, anstelle einfach der Identity-Server von Manfred Steyr.
+
+.auth.config.ts
+[source,typescript]
+----
+include::{src}/src/app/auth.config.ts[]
+----
+
+Es wurde ein eigener Service verwendet, der entsprechend auf die Methoden vom OAuthService zugreift.
+
+.auth.service.ts
+[source,typescript]
+----
+include::{src}/src/app/services/auth.service.ts[]
+----
+
+Mittels Claims werden Daten wie Name und Email ermittelt und angezeigt.
+
+<<<
+== Interceptor für Ladeanzeige und Fehlerbehandlung
+
+Mittels eigenem Interceptor, welcher zwischen jeder HTTP-Anfrage ausgeführt wird werden Ladenanimationen angezeigt und es erfolgt die Fehleranzeige.
+
+.api-interceptor.ts
+[source,typescript]
+----
+include::{src}/src/app/interceptors/api-interceptor.ts[]
+----
+
+Der Message-Service, welcher für die Anzeige von Fehlern verwendet wird, verwendet intern eine Angular Material Komponente namens Snackbar.
+Hier gibt es eine Methode zum Anzeigen von Infos und und Fehlern.
+
+.message.service.ts
+[source,typescript]
+----
+include::{src}/src/app/services/message.service.ts[]
+----
+
+Zum Anzeigen einer Ladeanimation wird eine LoaderService mit einer entsprechenden Komponente verwendet, welche einen Loading-Indicator anzeigt, wenn aktuell eine Http-Anfrage durchläuft.
+Für Autovervollständigung kann diese Ladeanimation dann vorübergehend deaktiviert werden.
+
+.loader.service.ts
+[source,typescript]
+----
+include::{src}/src/app/services/loader.service.ts[]
+----
+
+<<<
+== Metriken
+
+.Anzeige von Metriken
+image::{img}/metrics.png[]
+
+Mittels Floating-Action-Button (FAB) rechts unten können neue Metriken hinzugefügt werden.
+Daraufhin wird ein Angular-Material Dialog geöffnet, wo entsprechende Einstellungen gesetzt werden können.
+
+.Hinzufügen von Charts
+image::{img}/add_metric_chart.png[pdfwidth=65%]
+
+Hier wird dann eine Reactive-Form angezeigt, wo eine entsprechende Konfiguration gesetzt werden kann.
+Pflichtfelder werden mit einem * markiert und bei Fehlern wird auch entsprechend eine Fehlermeldung angezeigt und es kann nicht mehr gespeichert werden.
+Felder wie die Metriknamen wurden dabei mit Material Autocompletes umgesetzt und folgendermaßen konfiguriert:
+
+.edit-metric-chart-dialog.ts
+[source,typescript]
+----
+include::{src}/src/app/components/edit-metric-chart-dialog/edit-metric-chart-dialog.component.ts[lines=47..53]
+----
+
+.Hinzufügen von Charts (ausgefüllt)
+image::{img}/add_metric_chart_filled.png[pdfwidth=60%]
+
+Die Metriken werden nach dem Speichern in einer Übersicht angezeigt.
+Das Speichern selbst erfolgt im LocalStorage, dazu wurde ein eigener Service erstellt.
+
+.StorageService.ts
+[source,typescript]
+----
+include::{src}/src/app/services/storage.service.ts[]
+----
+
+Nach dem Hinzufügen werden alle Metrik-Charts in einer Übersicht angezeigt.
+
+.Anzeige der hinzugefügten Metrik
+image::{img}/metrics_overview.png[]
+
+Mittels "Edit" und "Delete" können diese auch nach der Erstellung noch bearbeitet bzw. gelöscht werden.
+Mit "Show data" werden dazugehörige Daten eines Charts angezeigt.
+
+.Detailansicht eines Metrik-Charts
+image::{img}/metric_details.png[]
+
+<<<
+== Detektoren
+
+In einer Tabelle werden Detektoren dargestellt.
+Wenn man auf den Button bei der Spalte active drückt, wird der aktuelle Detektor aktiviert/deaktiviert.
+
+.Übersicht von Detektoren
+image::{img}/detectors.png[]
+
+Detaillierte Informationen werden angezeigt, wenn man den Detektor auswählt.
+
+.Detailansicht eines Detektors
+image::{img}/detector_details.png[pdfwidth=60%]
+
+Detektoren können auch gelöscht oder verändert werden.
+Dazu werden zwei Floating-Action-Buttons zum Bearbeiten und Löschen angezeigt.
+
+.Bearbeiten von Detektoren
+image::{img}/edit_detector.png[pdfwidth=60%]
+
+Auch hier wurde wieder mit Reactive-Forms gearbeitet.
+Es können auch zwischen den zwei vorhandenen Detektortypen hin und her gewechselt werden, bestehende Daten werden dabei gelöscht.
+
+<<<
+== Logs
+
+Logs werden in einer Übersicht dargestellt und können entsprechend gefiltert werden.
+Die einzelnen Log-Levels werden in unterschiedlichen Farben angezeigt.
+Für die Filterung wurde eine eigene Komponente erstellt, wo wieder Reactive-Forms zum Einsatz gekommen ist.
+Mithilfe eines Output-Emitters werden bei Änderungen die Filter an die Übersicht weitergegeben.
+
+.Anzeige von Logs
+image::{img}/log_overview.png[]
+
+<<<
+== Clients
+
+Für die Clients gibt es auch eine Übersicht, wobei hier der App-Key verschlüsselt angezeigt wird.
+Es können aber neue Clients hinzugefügt werden und der App-Key kopiert werden.
+Dies erfolgt wieder über den Floating-Action-Button rechts unten.
+
+.Erstellen neuer Clients
+image::{img}/add_client.png[]
+
+Nach dem Drücken auf "Generate App-Key" wird ein neuer Client erstellt, der App-Key kann danach kopiert werden.
+
+.Neuer Client erstellt
+image::{img}/add_client_app_key.png[pdfwidth=60%]

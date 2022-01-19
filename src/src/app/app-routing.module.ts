@@ -22,37 +22,37 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
-    path: 'clients',
-    component: ClientListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'detectors',
-    component: DetectorListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'detectors/:id',
-    component: DetectorDetailComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'logs',
-    component: LogListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'metrics',
-    component: MetricDashboardComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'metrics/:configId',
-    component: MetricListComponent,
-    canActivate: [AuthGuard]
+    path: '',
+    canActivateChild: [AuthGuard],
+    children: [
+      {
+        path: 'clients',
+        component: ClientListComponent
+      },
+      {
+        path: 'detectors',
+        component: DetectorListComponent
+      },
+      {
+        path: 'detectors/:id',
+        component: DetectorDetailComponent
+      },
+      {
+        path: 'logs',
+        component: LogListComponent
+      },
+      {
+        path: 'metrics',
+        component: MetricDashboardComponent
+      },
+      {
+        path: 'metrics/:configId',
+        component: MetricListComponent
+      }
+    ]
   },
   {
     path: '**',

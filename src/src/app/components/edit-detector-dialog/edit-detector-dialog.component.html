@@ -1,5 +1,5 @@
 <form [formGroup]="editForm" (ngSubmit)="submit()" *ngIf="editForm">
-    <h1 mat-dialog-title>Edit Detector</h1>
+    <h1 mat-dialog-title> {{isNew ? 'Add': 'Edit'}} Detector</h1>
     <div mat-dialog-content>
         <mat-card class="mat-elevation-z8 mb-2">
             <mat-card-title>
