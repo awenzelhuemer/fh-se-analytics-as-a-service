@@ -21,13 +21,14 @@ export class AppComponent {
     private router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher) {
+
     this.authService.configure();
+
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this.mobileQueryListener);
     this.router.events.subscribe(e => {
       if (e instanceof NavigationStart) {
-        // TODO Close only on mobile
         if (this.mobileQuery.matches) {
           this.sidenav.close();
         }
@@ -37,10 +38,6 @@ export class AppComponent {
 
   get isSignedIn() {
     return this.authService.isSignedIn();
-  }
-
-  closeSidenav() {
-    // this.sidenav.close();
   }
 
   signOut() {

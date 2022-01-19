@@ -21,6 +21,10 @@ export class AuthService {
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
+  getClaims() {
+    return this.oauthService.getIdentityClaims();
+  }
+
   signOut(): boolean {
     this.oauthService.logOut(true);
     return true;

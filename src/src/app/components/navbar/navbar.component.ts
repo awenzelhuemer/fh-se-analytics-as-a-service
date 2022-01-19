@@ -36,4 +36,8 @@ export class NavbarComponent implements OnInit {
     this.toggleClick.emit();
   }
 
+  get userinfo() {
+    const claims = this.authService.getClaims() as {family_name: string, email:string, given_name: string};
+    return claims ? `${claims.given_name} ${claims.family_name} (${claims.email})` : null;
+  }
 }

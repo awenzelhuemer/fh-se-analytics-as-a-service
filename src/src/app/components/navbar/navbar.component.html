@@ -6,9 +6,18 @@
         <a mat-button class="app-name" routerLink="/">AaaS</a>
     </div>
     <div class="col-auto">
-        <button mat-button (click)="isSignedIn ? signOut() : signIn()">
-            <mat-icon>{{isSignedIn ? 'login' : 'logout'}}</mat-icon>
-            {{isSignedIn ? 'Sign out' : 'Sign in'}}
+        <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="isSignedIn" >
+            <mat-icon>account_circle</mat-icon>
+            {{userinfo}}
+        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="signOut()">
+                <mat-icon>logout</mat-icon> Sign out
+            </button>
+        </mat-menu>
+        <button mat-button *ngIf="!isSignedIn" (click)="signIn()">
+            <mat-icon>login</mat-icon>
+            Sign in
         </button>
     </div>
 </mat-toolbar>
