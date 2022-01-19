@@ -53,6 +53,10 @@ const routes: Routes = [
     path: 'metrics/:configId',
     component: MetricListComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
   }
 ];
 
