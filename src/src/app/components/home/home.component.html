@@ -1,9 +1,6 @@
-<mat-card>
-    <mat-card-title class="text-center ">
-        <h1 class="m-0">Dashboard
-        </h1>
-    </mat-card-title>
-    <mat-card-content *ngIf="!isSignedIn">
+<h1 class="text-center">Dashboard</h1>
+<mat-card *ngIf="!isSignedIn">
+    <mat-card-content>
         Sign in to use features like:
         <mat-list>
             <mat-list-item>Viewing and editing detectors</mat-list-item>

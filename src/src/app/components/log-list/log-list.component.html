@@ -1,7 +1,5 @@
+<h1 class="text-center">Logs</h1>
 <mat-card>
-    <mat-card-title class="text-center">
-        <h1>Logs</h1>
-    </mat-card-title>
     <app-log-filter (filterChange)="filterChange($event)"></app-log-filter>
     <table mat-table [dataSource]="logs" class="w-100">
         <ng-container matColumnDef="id">

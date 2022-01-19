@@ -1,11 +1,10 @@
+<h1 class="text-center">Clients</h1>
 <mat-card>
-    <mat-card-title class="text-center justify-content-between d-flex">
-        <span></span>
-        <h1>Clients</h1>
+    <mat-card-actions class="text-center justify-content-end d-flex">
         <button mat-button (click)="loadClients()">
             <mat-icon>refresh</mat-icon>
         </button>
-    </mat-card-title>
+    </mat-card-actions>
     <table class="w-100" mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>#</th>

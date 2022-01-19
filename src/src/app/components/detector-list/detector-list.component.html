@@ -1,11 +1,10 @@
+<h1 class="text-center">Detectors</h1>
 <mat-card>
-    <mat-card-title class="text-center justify-content-between d-flex">
-        <span></span>
-        <h1>Detectors</h1>
+    <mat-card-actions class="d-flex justify-content-end">
         <button mat-button (click)="loadDetectors()">
             <mat-icon>refresh</mat-icon>
         </button>
-    </mat-card-title>
+    </mat-card-actions>
     <table class="w-100" mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="activated">
             <th mat-header-cell *matHeaderCellDef>Active</th>

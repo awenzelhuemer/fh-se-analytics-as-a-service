@@ -1,7 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -25,6 +25,14 @@ export class AppComponent {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this.mobileQueryListener);
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationStart) {
+        // TODO Close only on mobile
+        if (this.mobileQuery.matches) {
+          this.sidenav.close();
+        }
+      }
+    })
   }
 
   get isSignedIn() {
@@ -32,12 +40,16 @@ export class AppComponent {
   }
 
   closeSidenav() {
-    this.sidenav.close();
+    // this.sidenav.close();
   }
 
   signOut() {
     this.authService.signOut();
     this.router.navigateByUrl("/home");
+  }
+
+  get opened() {
+    return !this.mobileQuery.matches && this.authService.isSignedIn();
   }
 
   signIn() {

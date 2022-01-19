@@ -1,11 +1,13 @@
+<h1 class="text-center">Data for "{{config?.name}}"</h1>
 <mat-card *ngIf="config">
-    <mat-card-title class="text-center d-flex justify-content-between">
-        <button mat-button (click)="goBack()"><mat-icon>arrow_back</mat-icon></button>
-        <h1 class="d-flex">Data for "{{config?.name}}"</h1>
-            <button mat-icon-button (click)="loadData()">
-                <mat-icon>refresh</mat-icon>
-            </button>
-    </mat-card-title>
+    <mat-card-actions class="text-center d-flex justify-content-between">
+        <button mat-button (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-icon-button (click)="loadData()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+    </mat-card-actions>
     <table mat-table [dataSource]="metrics" class="w-100">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>#</th>
@@ -48,5 +50,5 @@
         </tr>
     </table>
     <mat-paginator [length]="resultsLength" [pageSize]="itemsPerPage" [showFirstLastButtons]="true"
-                   [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+        [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
 </mat-card>
