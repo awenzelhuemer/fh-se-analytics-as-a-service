@@ -33,6 +33,8 @@ import { MetricTypePipe } from './pipes/metric-type.pipe';
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { AppKeyPipe } from './pipes/app-key.pipe';
 import { AddClientDialogComponent } from './components/add-client-dialog/add-client-dialog.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -76,7 +78,13 @@ registerLocaleData(localeDeAt);
     ReactiveFormsModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
-    NgChartsModule
+    NgChartsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: 
   [

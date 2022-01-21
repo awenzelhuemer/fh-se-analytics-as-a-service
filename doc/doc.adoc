@@ -18,14 +18,30 @@ Andreas Wenzelhuemer
 == Aufwand
 Der Aufwand betrug aufgrund Vorerfahrung ~15h.
 
-== Pakete
+== Verwendete Pakete
 
 Verwendet wurde folgende Pakete:
 
-- Angular: `@angular 13.1.1`
 - Authentifizierung: `angular-oauth2-oidc 13.0.1`
 - Styling: `@angular/material 13.1.1`
 - Charts: `ng2-charts 3.0.5`
+
+== Installationsanleitung
+
+Folgende Befehle müssen ausgeführt werden, um die Anwendung zu starten:
+
+ - `cd ./src`
+ - `npm install` zum Installieren der NPM-Pakete
+ - `ng serve` zum Starten der Anwendung
+ - Anwendung im Browser unter http://localhost:4200 öffnen
+
+Der API-Endpunkt kann in den environment Files bei `apiBaseUrl` geändert werden.
+
+.environments/environment.ts
+[source,typescript]
+----
+include::{src}/src/environments/environment.ts[]
+----
 
 == Aufbau
 
@@ -189,5 +205,5 @@ image::{img}/add_client.png[]
 
 Nach dem Drücken auf "Generate App-Key" wird ein neuer Client erstellt, der App-Key kann danach kopiert werden.
 
-.Neuer Client erstellt
-image::{img}/add_client_app_key.png[pdfwidth=60%]
+.Erfolgreiche Erstellung
+image::{img}/add_client_app_key.png[]
