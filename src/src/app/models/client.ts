@@ -1,3 +1,4 @@
 export interface Client {
-    appKey: string
+    appKey: string,
+    instanceIds: string[]
 }

@@ -13,7 +13,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 })
 export class ClientListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = [ "id", "appKey"];
+  displayedColumns = ["appKey", "instanceIds"];
   dataSource = new MatTableDataSource<Client>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

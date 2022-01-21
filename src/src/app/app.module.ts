@@ -30,7 +30,6 @@ import { EditMetricChartDialogComponent } from './components/edit-metric-chart-d
 import { MetricChartSizePipe } from './pipes/metric-chart-size.pipe';
 import { MetricListComponent } from './components/metric-list/metric-list.component';
 import { MetricTypePipe } from './pipes/metric-type.pipe';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { AppKeyPipe } from './pipes/app-key.pipe';
 import { AddClientDialogComponent } from './components/add-client-dialog/add-client-dialog.component';

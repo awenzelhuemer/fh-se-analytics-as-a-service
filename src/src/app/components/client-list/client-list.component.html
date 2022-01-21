@@ -6,16 +6,18 @@
         </button>
     </mat-card-actions>
     <table class="w-100" mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>#</th>
-            <td mat-cell *matCellDef="let row">
-                {{row.id}}
-            </td>
-        </ng-container>
         <ng-container matColumnDef="appKey">
             <th mat-header-cell *matHeaderCellDef>App-Key</th>
             <td mat-cell *matCellDef="let row">
-                {{row.appKey | appKey}}
+                {{row.appKey}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="instanceIds">
+            <th mat-header-cell *matHeaderCellDef>Instance-Ids</th>
+            <td mat-cell *matCellDef="let row">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let instanceId of row.instanceIds">{{instanceId}}</mat-chip>
+                </mat-chip-list>
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -24,9 +26,8 @@
             <td class="mat-cell" colspan="2">No data found.</td>
         </tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[10, 25, 100]"
-                 showFirstLastButtons>
-  </mat-paginator>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons>
+    </mat-paginator>
 </mat-card>
 <button mat-fab color="primary" class="floating-fab" (click)="addClient()">
     <mat-icon>add</mat-icon>
