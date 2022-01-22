@@ -35,7 +35,7 @@ Folgende Befehle müssen ausgeführt werden, um die Anwendung zu starten:
  - `ng serve` zum Starten der Anwendung
  - Anwendung im Browser unter http://localhost:4200 öffnen
 
-Der API-Endpunkt kann in den environment Files bei `apiBaseUrl` geändert werden.
+Der API-Endpunkt kann in den environment Files unter `apiBaseUrl` geändert werden.
 
 .environments/environment.ts
 [source,typescript]
@@ -43,6 +43,7 @@ Der API-Endpunkt kann in den environment Files bei `apiBaseUrl` geändert werden
 include::{src}/src/environments/environment.ts[]
 ----
 
+<<<
 == Aufbau
 
 Das Projekt wurde strukturell auf folgende Teile aufgeteilt:
@@ -58,16 +59,16 @@ Das Projekt wurde strukturell auf folgende Teile aufgeteilt:
 == Übersicht
 
 Ganz oben wird eine Navbar angezeigt, wo man sich entsprechend ab-/anmelden kann.
-Darunter wird eine Angular-Sidebar-Komponente angezeigt, wo die entsprechenden Pages ausgewählt werden können.
+Darunter wird eine Angular-Materials Sidebar-Komponente angezeigt, wo die entsprechenden Pages ausgewählt werden können.
 Dies ist aber nur möglich, wenn man auch angemeldet ist.
 
 .Übersicht
-image::{img}/overview.png[]
+image::{img}/overview.png[pdfwidth=65%]
 
 <<<
 == Authentifizierung
 
-Hier wurde kein eigener Keycloak-Server verwendet, anstelle einfach der Identity-Server von Manfred Steyr.
+Hier wurde kein eigener Keycloak-Server verwendet, sondern einfach der Identity-Server von Manfred Steyr.
 
 .auth.config.ts
 [source,typescript]
@@ -166,12 +167,12 @@ In einer Tabelle werden Detektoren dargestellt.
 Wenn man auf den Button bei der Spalte active drückt, wird der aktuelle Detektor aktiviert/deaktiviert.
 
 .Übersicht von Detektoren
-image::{img}/detectors.png[]
+image::{img}/detectors.png[pdfwidth=75%]
 
-Detaillierte Informationen werden angezeigt, wenn man den Detektor auswählt.
+Detaillierte Informationen werden angezeigt, wenn man einen Detektor auswählt.
 
 .Detailansicht eines Detektors
-image::{img}/detector_details.png[pdfwidth=60%]
+image::{img}/detector_details.png[pdfwidth=65%]
 
 Detektoren können auch gelöscht oder verändert werden.
 Dazu werden zwei Floating-Action-Buttons zum Bearbeiten und Löschen angezeigt.
@@ -196,8 +197,8 @@ image::{img}/log_overview.png[]
 <<<
 == Clients
 
-Für die Clients gibt es auch eine Übersicht, wobei hier der App-Key verschlüsselt angezeigt wird.
-Es können aber neue Clients hinzugefügt werden und der App-Key kopiert werden.
+Für die Clients gibt es auch eine Übersicht, wobei hier App-Key und Instanzen angezeigt werden.
+Es können neue Clients hinzugefügt werden und der App-Key kopiert werden.
 Dies erfolgt wieder über den Floating-Action-Button rechts unten.
 
 .Erstellen neuer Clients

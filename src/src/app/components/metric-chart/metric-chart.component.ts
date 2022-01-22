@@ -101,7 +101,6 @@ export class MetricChartComponent implements OnInit {
   }
 
   private addDataSet(label: string, data: number[]) {
-    console.log("Dataset added with " + label);
     this.data.datasets.push({
       data: data,
       label: label,
