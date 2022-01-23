@@ -46,8 +46,8 @@ $my--light-app-theme: mat.define-light-theme(
   )
 );
 
-@include angular-material-theme($my--light-app-theme);
+@include mat.all-component-themes($my--light-app-theme);
 
 .dark-theme {
-  @include angular-material-theme($my-app-theme);
+  @include mat.all-component-colors($my-app-theme);
 }
