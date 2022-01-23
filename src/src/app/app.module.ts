@@ -33,8 +33,6 @@ import { MetricTypePipe } from './pipes/metric-type.pipe';
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { AppKeyPipe } from './pipes/app-key.pipe';
 import { AddClientDialogComponent } from './components/add-client-dialog/add-client-dialog.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,

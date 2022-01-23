@@ -81,12 +81,8 @@ export class MetricChartComponent implements OnInit {
 
         this.data.labels?.forEach(createdAt => {
           // One or multiple entries with current date exist
-          const metric = filteredMetrics.find(m => m.createdAt == createdAt);
-          if (metric) {
-            chartData.push(metric.value);
-          } else { // No entry exists (Fill up with null)
-            chartData.push(0);
-          }
+          const value = filteredMetrics.find(m => m.createdAt == createdAt)?.value ?? 0;
+          chartData.push(value)
         });
 
         this.addDataSet(name, chartData);
@@ -103,7 +99,6 @@ export class MetricChartComponent implements OnInit {
     this.data.datasets.push({
       data: data,
       label: label,
-      backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: this.config.metrics.find(m => m.name == label)?.color ?? ColorHelper.getRandomColor(),
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
