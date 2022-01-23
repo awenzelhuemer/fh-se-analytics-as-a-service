@@ -34,13 +34,13 @@ body {
   }
 
 .card-error, .message-error {
-    color: white;
-    background-color: #dc3545;
+    color: white !important;
+    background-color: #dc3545 !important;
 }
 
 .card-info, .message-info {
-    color: black;
-    background-color: #0dcaf0;
+    color: black !important;
+    background-color: #0dcaf0 !important;
 }
 
 .dark-theme .active {
