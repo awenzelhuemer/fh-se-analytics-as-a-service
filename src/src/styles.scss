@@ -43,6 +43,10 @@ body {
     background-color: #0dcaf0;
 }
 
-.active {
+.dark-theme .active {
     background-color: #303030 !important;
-  }
+}
+
+.active {
+    background-color: #e0e0e0 !important;
+}

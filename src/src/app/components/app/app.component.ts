@@ -1,8 +1,10 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { ChangeDetectorRef, Component, HostBinding, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationStart, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +18,20 @@ export class AppComponent {
   private mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
 
+  @HostBinding('class') className = '';
+
   constructor(
     private authService: AuthService,
     private router: Router,
     changeDetectorRef: ChangeDetectorRef,
+    private overlay: OverlayContainer,
+    storageService: StorageService,
     media: MediaMatcher) {
 
     this.authService.configure();
+
+    const darkMode = storageService.get(StorageService.darkMode, media.matchMedia("(prefers-color-scheme: dark)").matches);
+    this.onDarkModeChange(darkMode);
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -33,7 +42,7 @@ export class AppComponent {
           this.sidenav.close();
         }
       }
-    })
+    });
   }
 
   get isSignedIn() {
@@ -52,5 +61,15 @@ export class AppComponent {
   signIn() {
     this.authService.signIn();
     this.sidenav.open();
+  }
+
+  onDarkModeChange(darkMode: boolean) {
+    const darkClassName = 'dark-theme';
+    this.className = darkMode ? darkClassName : '';
+    if (darkMode) {
+      this.overlay.getContainerElement().classList.add(darkClassName);
+    } else {
+      this.overlay.getContainerElement().classList.remove(darkClassName);
+    }
   }
 }

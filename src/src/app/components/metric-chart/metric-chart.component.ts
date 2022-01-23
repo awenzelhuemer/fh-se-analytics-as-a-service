@@ -69,8 +69,7 @@ export class MetricChartComponent implements OnInit {
 
   private fillCharts(metrics: Metric[]) {
     this.data.labels = metrics
-    .map(m => m.createdAt)
-    .filter(MetricChartComponent.onlyUnique);
+    .map(m => m.createdAt);
     this.data.datasets = [];
 
     metrics.map(m => m.name)
@@ -78,14 +77,14 @@ export class MetricChartComponent implements OnInit {
       .forEach(name => {
 
         const filteredMetrics = metrics.filter(i => i.name == name);
-        const chartData: number[] = [];
+        const chartData: (number | null)[] = [];
 
         this.data.labels?.forEach(createdAt => {
           // One or multiple entries with current date exist
           const metric = filteredMetrics.find(m => m.createdAt == createdAt);
           if (metric) {
             chartData.push(metric.value);
-          } else { // No entry exists (Fill up with zeros)
+          } else { // No entry exists (Fill up with null)
             chartData.push(0);
           }
         });
@@ -100,7 +99,7 @@ export class MetricChartComponent implements OnInit {
     return self.indexOf(value) === index;
   }
 
-  private addDataSet(label: string, data: number[]) {
+  private addDataSet(label: string, data: (number | null)[]) {
     this.data.datasets.push({
       data: data,
       label: label,

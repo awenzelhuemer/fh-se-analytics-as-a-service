@@ -2,7 +2,7 @@
 <app-loading-indicator></app-loading-indicator>
 
 <div class="navbar-container" [class.is-mobile]="mobileQuery.matches">
-    <app-navbar class="toolbar" (toggleClick)="snav.toggle()"></app-navbar>
+    <app-navbar class="toolbar" (toggleClick)="snav.toggle()" (darkModeChange)="onDarkModeChange($event)"></app-navbar>
     <mat-sidenav-container class="sidenav-container">
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
             fixedTopGap="56" [opened]="opened">

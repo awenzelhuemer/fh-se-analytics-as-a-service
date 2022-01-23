@@ -1,13 +1,16 @@
 .log-type-warning {
-    background-color: rgb(207, 136, 4);
+    color: white;
+    background-color: rgb(207, 136, 4) !important;
 }
 
 .log-type-error {
-    background-color: rgb(170, 56, 21);
+    color: white;
+    background-color: rgb(170, 56, 21) !important;
 }
 
 .log-type-trace {
-    background-color: rgb(0, 121, 158);
+    color: white;
+    background-color: rgb(0, 121, 158) !important;
 }
 
 .mat-column-type {

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class StorageService {
 
   static readonly metricConfiguration: string = "METRIC_CHART_CONFIGURATION";
+  static readonly darkMode: string = "DARK_MODE";
 
   constructor() { }
 

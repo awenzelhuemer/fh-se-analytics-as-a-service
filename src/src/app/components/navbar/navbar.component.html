@@ -6,18 +6,27 @@
         <a mat-button class="app-name" routerLink="/">AaaS</a>
     </div>
     <div class="col-auto">
-        <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="isSignedIn" >
-            <mat-icon>account_circle</mat-icon>
-            {{userinfo}}
-        </button>
-        <mat-menu #userMenu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="signOut()">
-                <mat-icon>logout</mat-icon> Sign out
+        <div class="row">
+            <button class="col-auto" mat-button [matMenuTriggerFor]="userMenu" *ngIf="isSignedIn">
+                <mat-icon>account_circle</mat-icon>
+                {{userinfo}}
             </button>
-        </mat-menu>
-        <button mat-button *ngIf="!isSignedIn" (click)="signIn()">
-            <mat-icon>login</mat-icon>
-            Sign in
-        </button>
+            <mat-menu #userMenu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="signOut()">
+                    <mat-icon>logout</mat-icon> Sign out
+                </button>
+
+            </mat-menu>
+            <button class="col-auto" mat-button *ngIf="!isSignedIn" (click)="signIn()">
+                <mat-icon>login</mat-icon>
+                Sign in
+            </button>
+            <div class="col-auto">
+                <button mat-icon-button (click)="toggleDarkMode()">
+                    <mat-icon *ngIf="!darkMode">brightness_5</mat-icon>
+                    <mat-icon *ngIf="darkMode">bedtime</mat-icon>
+            </button>  
+            </div>
+        </div>
     </div>
 </mat-toolbar>
